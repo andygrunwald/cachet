@@ -95,7 +95,7 @@ func (s *ComponentsService) Update(id int, c *Component) (*Component, *Response,
 	return v.Data, resp, err
 }
 
-// Update deletes a component.
+// Delete deletes a component.
 //
 // Docs: https://docs.cachethq.io/docs/delete-a-component
 func (s *ComponentsService) Delete(id int) (*Response, error) {
