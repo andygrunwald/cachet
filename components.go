@@ -4,6 +4,20 @@ import (
 	"fmt"
 )
 
+const (
+	// Docs: https://docs.cachethq.io/docs/component-statuses
+
+	// ComponentStatusOperational means "The component is working."
+	ComponentStatusOperational = 1
+	// ComponentStatusPerformanceIssues means "The component is experiencing some slowness."
+	ComponentStatusPerformanceIssues = 2
+	// ComponentStatusPartialOutage means "The component may not be working for everybody."
+	// This could be a geographical issue for example.
+	ComponentStatusPartialOutage = 3
+	// ComponentStatusMajorOutage means "The component is not working for anybody."
+	ComponentStatusMajorOutage = 4
+)
+
 // ComponentsService contains REST endpoints that belongs to cachet components.
 type ComponentsService struct {
 	client *Client
