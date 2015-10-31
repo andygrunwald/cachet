@@ -62,7 +62,7 @@ func (s *ComponentsService) Get(id int) (*Component, *Response, error) {
 // Create a new component.
 //
 // Docs: https://docs.cachethq.io/docs/components
-func (s *ComponentsService) Create(c Component) (*Component, *Response, error) {
+func (s *ComponentsService) Create(c *Component) (*Component, *Response, error) {
 	u := "api/v1/components"
 	v := new(componentAPIResponse)
 
@@ -70,6 +70,23 @@ func (s *ComponentsService) Create(c Component) (*Component, *Response, error) {
 	return v.Data, resp, err
 }
 
-// Missing methods
-//		Update: https://docs.cachethq.io/docs/update-a-component
-//		Delete: https://docs.cachethq.io/docs/delete-a-component
+// Update updates a component.
+//
+// Docs: https://docs.cachethq.io/docs/update-a-component
+func (s *ComponentsService) Update(id int, c *Component) (*Component, *Response, error) {
+	u := fmt.Sprintf("api/v1/components/%d", id)
+	v := new(componentAPIResponse)
+
+	resp, err := s.client.Call("PUT", u, c, v)
+	return v.Data, resp, err
+}
+
+// Update deletes a component.
+//
+// Docs: https://docs.cachethq.io/docs/delete-a-component
+func (s *ComponentsService) Delete(id int) (*Response, error) {
+	u := fmt.Sprintf("api/v1/components/%d", id)
+
+	resp, err := s.client.Call("DELETE", u, nil, nil)
+	return resp, err
+}
