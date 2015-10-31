@@ -47,7 +47,7 @@ func ExampleTrending_CreateComponent() {
 	}
 	fmt.Printf("Status: %s\n", resp.Status)
 
-	// Output: Beer Fridge
+	// Output: Result: Beer Fridge
 	// ID > 0!
 	// Status: 200 OK
 }
