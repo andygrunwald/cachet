@@ -29,7 +29,7 @@ type Client struct {
 	Incidents  *IncidentsService
 	// TODO
 	// Metrics *MetricsService
-	// Subscribers  *SubscribersService
+	Subscribers *SubscribersService
 }
 
 // Response is a Cachet API response.
@@ -63,7 +63,7 @@ func NewClient(instance string, httpClient *http.Client) (*Client, error) {
 	c.Components = &ComponentsService{client: c}
 	c.Incidents = &IncidentsService{client: c}
 	// c.Metrics = &MetricsService{client: c}
-	// c.Subscribers = &SubscribersService{client: c}
+	c.Subscribers = &SubscribersService{client: c}
 
 	return c, nil
 }

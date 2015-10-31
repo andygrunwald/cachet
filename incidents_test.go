@@ -26,6 +26,7 @@ func TestIncidentsService_GetAll(t *testing.T) {
 			Pagination: Pagination{
 				Total:       1,
 				Count:       1,
+				// TODO Why is this 0? This should be 20. ...Maybe, because it is returned as string. But in components this is an int. Lets check this later
 				PerPage:     0,
 				CurrentPage: 1,
 				TotalPages:  1,
