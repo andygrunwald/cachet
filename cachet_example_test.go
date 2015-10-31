@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleTrending_Ping() {
-	client, err:= cachet.NewClient("https://demo.cachethq.io/", nil)
+	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func ExampleTrending_Ping() {
 }
 
 func ExampleTrending_CreateComponent() {
-	client, err:= cachet.NewClient("https://demo.cachethq.io/", nil)
+	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -32,9 +32,9 @@ func ExampleTrending_CreateComponent() {
 	client.Authentication.SetBasicAuth("test@test.com", "test123")
 
 	component := &cachet.Component{
-		Name: "Beer Fridge",
+		Name:        "Beer Fridge",
 		Description: "Status of the beer fridge in the kitchen",
-		Status: cachet.ComponentStatusOperational,
+		Status:      cachet.ComponentStatusOperational,
 	}
 	newComponent, resp, err := client.Components.Create(component)
 	if err != nil {
