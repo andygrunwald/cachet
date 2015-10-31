@@ -11,12 +11,11 @@ type MetricsService struct {
 
 // Metric entity reflects one single metric
 type Metric struct {
-	ID          int    `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Suffix      string `json:"suffix,omitempty"`
-	Description string `json:"description,omitempty"`
-	// TODO: Check what the API response here ... string or int?
-	DefaultValue int     `json:"default_value,omitempty"`
+	ID           int     `json:"id,omitempty"`
+	Name         string  `json:"name,omitempty"`
+	Suffix       string  `json:"suffix,omitempty"`
+	Description  string  `json:"description,omitempty"`
+	DefaultValue int     `json:"default_value"`
 	CalcType     int     `json:"calc_type,omitempty"`
 	DisplayChart bool    `json:"display_chart,omitempty"`
 	CreatedAt    string  `json:"created_at,omitempty"`

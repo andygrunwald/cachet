@@ -106,7 +106,45 @@ func TestMetricsService_Get(t *testing.T) {
 	}
 }
 
-// TODO: Unit test for TestMetricsService_Create
+func TestMetricsService_Create(t *testing.T) {
+	setup()
+	defer teardown()
+
+	testMux.HandleFunc("/api/v1/metrics", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		fmt.Fprint(w, `{"data":{"name":"Beer2","display_chart":true,"default_value":0,"calc_type":0,"places":1,"suffix":"Bottles","description":"How many beers we drank.","updated_at":"2015-10-31 16:56:18","created_at":"2015-10-31 16:56:18","id":5}}`)
+	})
+
+	m := &Metric{
+		Name:         "Beer2",
+		Suffix:       "Bottles",
+		Description:  "How many beers we drank.",
+		DefaultValue: 0,
+		DisplayChart: true,
+		Places:       1,
+	}
+	got, _, err := testClient.Metrics.Create(m)
+	if err != nil {
+		t.Errorf("Metrics.Create returned error: %v", err)
+	}
+
+	expected := &Metric{
+		ID:           5,
+		Name:         "Beer2",
+		Suffix:       "Bottles",
+		Description:  "How many beers we drank.",
+		DisplayChart: true,
+		DefaultValue: 0,
+		CalcType:     0,
+		Places:       1,
+		CreatedAt:    "2015-10-31 16:56:18",
+		UpdatedAt:    "2015-10-31 16:56:18",
+	}
+
+	if !reflect.DeepEqual(got, expected) {
+		t.Errorf("Metrics.Create returned %+v, want %+v", got, expected)
+	}
+}
 
 func TestMetricsService_Delete(t *testing.T) {
 	setup()
