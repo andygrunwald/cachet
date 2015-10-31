@@ -5,7 +5,7 @@ import (
 	"github.com/andygrunwald/cachet"
 )
 
-func ExampleTrending_Ping() {
+func ExampleGeneralService_Ping() {
 	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
@@ -23,7 +23,7 @@ func ExampleTrending_Ping() {
 	// Status: 200 OK
 }
 
-func ExampleTrending_CreateComponent() {
+func ExampleComponentsService_Create() {
 	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
