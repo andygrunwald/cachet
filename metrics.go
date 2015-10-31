@@ -47,6 +47,20 @@ type metricAPIResponse struct {
 	Data *Metric `json:"data"`
 }
 
+// metricPointsAPIResponse is an internal type to hide
+// some the "data" nested level from the API.
+// Some calls (e.g. Get or Create) return the metric points in the "data" key.
+type metricPointsAPIResponse struct {
+	Data *[]Point `json:"data"`
+}
+
+// metricPointAPIResponse is an internal type to hide
+// some the "data" nested level from the API.
+// Some calls (e.g. Get or Create) return the metric point in the "data" key.
+type metricPointAPIResponse struct {
+	Data *Point `json:"data"`
+}
+
 // GetAll returns all metrics that have been setup.
 //
 // Docs: https://docs.cachethq.io/docs/get-metrics
@@ -85,6 +99,46 @@ func (s *MetricsService) Create(m *Metric) (*Metric, *Response, error) {
 // Docs: https://docs.cachethq.io/docs/delete-a-metric
 func (s *MetricsService) Delete(id int) (*Response, error) {
 	u := fmt.Sprintf("api/v1/metrics/%d", id)
+
+	resp, err := s.client.Call("DELETE", u, nil, nil)
+	return resp, err
+}
+
+// GetPoints return a list of metric points.
+//
+// Docs: https://docs.cachethq.io/docs/get-metric-points
+func (s *MetricsService) GetPoints(id int) (*[]Point, *Response, error) {
+	u := fmt.Sprintf("api/v1/metrics/%d/points", id)
+	v := new(metricPointsAPIResponse)
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v.Data, resp, err
+}
+
+// AddPoint adds a metric point to a given metric.
+//
+// Docs: https://docs.cachethq.io/docs/post-metric-points
+func (s *MetricsService) AddPoint(id int, value int, timestamp string) (*Point, *Response, error) {
+	u := fmt.Sprintf("api/v1/metrics/%d/points", id)
+	v := new(metricPointAPIResponse)
+
+	p := struct {
+		Value     int    `json:"value"`
+		Timestamp string `json:"timestamp"`
+	}{
+		Value:     value,
+		Timestamp: timestamp,
+	}
+
+	resp, err := s.client.Call("POST", u, p, v)
+	return v.Data, resp, err
+}
+
+// DeletePoint deletes a metric point.
+//
+// Docs: https://docs.cachethq.io/docs/delete-a-metric-point
+func (s *MetricsService) DeletePoint(id, pointID int) (*Response, error) {
+	u := fmt.Sprintf("api/v1/metrics/%d/points/%d", id, pointID)
 
 	resp, err := s.client.Call("DELETE", u, nil, nil)
 	return resp, err

@@ -126,3 +126,86 @@ func TestMetricsService_Delete(t *testing.T) {
 		t.Errorf("Metrics.Delete returned status %+v, want %+v", resp.StatusCode, http.StatusNoContent)
 	}
 }
+
+func TestMetricsService_GetPoints(t *testing.T) {
+	setup()
+	defer teardown()
+
+	testMux.HandleFunc("/api/v1/metrics/1/points", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `{"data":[{"id":1,"metric_id":1,"value":4,"created_at":"2015-10-31 16:30:02","updated_at":"2015-10-31 16:30:02"},{"id":2,"metric_id":1,"value":6,"created_at":"2015-10-31 15:30:02","updated_at":"2015-10-31 16:30:02"}]}`)
+	})
+
+	got, _, err := testClient.Metrics.GetPoints(1)
+	if err != nil {
+		t.Errorf("Metrics.GetPoints returned error: %v", err)
+	}
+
+	expected := &[]Point{
+		Point{
+			ID:        1,
+			MetricID:  1,
+			Value:     4,
+			CreatedAt: "2015-10-31 16:30:02",
+			UpdatedAt: "2015-10-31 16:30:02",
+		},
+		Point{
+			ID:        2,
+			MetricID:  1,
+			Value:     6,
+			CreatedAt: "2015-10-31 15:30:02",
+			UpdatedAt: "2015-10-31 16:30:02",
+		},
+	}
+
+	if !reflect.DeepEqual(got, expected) {
+		t.Errorf("Metrics.GetPoints returned %+v, want %+v", got, expected)
+	}
+}
+
+func TestMetricsService_AddPoint(t *testing.T) {
+	setup()
+	defer teardown()
+
+	testMux.HandleFunc("/api/v1/metrics/1/points", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		fmt.Fprint(w, `{"data":{"metric_id":1,"value":20,"updated_at":"2015-10-31 16:46:04","created_at":"2015-10-31 16:46:04","id":14}}`)
+	})
+
+	got, _, err := testClient.Metrics.AddPoint(1, 20, "")
+	if err != nil {
+		t.Errorf("Metrics.AddPoint returned error: %v", err)
+	}
+
+	expected := &Point{
+
+		ID:        14,
+		MetricID:  1,
+		Value:     20,
+		CreatedAt: "2015-10-31 16:46:04",
+		UpdatedAt: "2015-10-31 16:46:04",
+	}
+
+	if !reflect.DeepEqual(got, expected) {
+		t.Errorf("Metrics.AddPoint returned %+v, want %+v", got, expected)
+	}
+}
+
+func TestMetricsService_DeletePoint(t *testing.T) {
+	setup()
+	defer teardown()
+
+	testMux.HandleFunc("/api/v1/metrics/1/points/1", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "DELETE")
+		w.WriteHeader(http.StatusNoContent)
+	})
+
+	resp, err := testClient.Metrics.DeletePoint(1, 1)
+	if err != nil {
+		t.Errorf("Metrics.DeletePoint returned error: %v", err)
+	}
+
+	if resp.StatusCode != http.StatusNoContent {
+		t.Errorf("Metrics.DeletePoint returned status %+v, want %+v", resp.StatusCode, http.StatusNoContent)
+	}
+}
