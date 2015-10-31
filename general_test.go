@@ -22,9 +22,7 @@ func TestGeneralService_Ping(t *testing.T) {
 		t.Errorf("General.Ping returned error: %v", err)
 	}
 
-	expected := &Ping{
-		Data: "Pong!",
-	}
+	expected := "Pong!"
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("General.Ping returned %+v, want %+v", got, expected)
 	}
