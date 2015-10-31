@@ -107,12 +107,9 @@ func TestNewClient_Services(t *testing.T) {
 	if c.Incidents == nil {
 		t.Error("No IncidentsService found.")
 	}
-	/*
-		TODO: Add MetricsService
-		if c.Metrics == nil {
-			t.Error("No MetricsService found.")
-		}
-	*/
+	if c.Metrics == nil {
+		t.Error("No MetricsService found.")
+	}
 	if c.Subscribers == nil {
 		t.Error("No SubscribersService found.")
 	}
