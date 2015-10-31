@@ -100,7 +100,7 @@ func TestComponentsService_Create(t *testing.T) {
 	})
 
 	co := &Component{
-		Name: "Go API (by Token) - Updated!",
+		Name:   "Go API (by Token) - Updated!",
 		Status: 1,
 	}
 	got, _, err := testClient.Components.Create(co)
@@ -137,7 +137,7 @@ func TestComponentsService_Update(t *testing.T) {
 	})
 
 	co := &Component{
-		Name: "Component Name",
+		Name:   "Component Name",
 		Status: 1,
 	}
 	got, _, err := testClient.Components.Update(1, co)

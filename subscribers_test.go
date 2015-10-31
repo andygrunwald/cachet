@@ -13,7 +13,7 @@ func TestSubscribersService_GetAll(t *testing.T) {
 
 	testMux.HandleFunc("/api/v1/subscribers", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":"20","current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"email":"support@alt-three.com","verify_code":"1234567890","verified_at":"2015-07-24 14:42:24","created_at":"2015-07-24 14:42:24","updated_at":"2015-07-24 14:42:24"}]}`)
+		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"email":"support@alt-three.com","verify_code":"1234567890","verified_at":"2015-07-24 14:42:24","created_at":"2015-07-24 14:42:24","updated_at":"2015-07-24 14:42:24"}]}`)
 	})
 
 	got, _, err := testClient.Subscribers.GetAll()
@@ -24,10 +24,9 @@ func TestSubscribersService_GetAll(t *testing.T) {
 	expected := &SubscriberResponse{
 		Meta: Meta{
 			Pagination: Pagination{
-				Total: 1,
-				Count: 1,
-				// TODO Why is this 0? This should be 20. ...Maybe, because it is returned as string. But in components this is an int. Lets check this later
-				PerPage:     0,
+				Total:       1,
+				Count:       1,
+				PerPage:     20,
 				CurrentPage: 1,
 				TotalPages:  1,
 				Links: Links{
