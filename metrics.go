@@ -4,6 +4,13 @@ import (
 	"fmt"
 )
 
+const (
+	// MetricsCalculationSum means "Calculation of Metrics: Sum"
+	MetricsCalculationSum = 0
+	// MetricsCalculationAverage means "Calculation of Metrics: Average"
+	MetricsCalculationAverage = 1
+)
+
 // MetricsService contains REST endpoints that belongs to cachet metrics.
 type MetricsService struct {
 	client *Client
