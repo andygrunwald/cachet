@@ -1,5 +1,5 @@
 /*
-Package cached provides a client for using the Cachet API (https://cachethq.io/).
+Package cachet provides a client for using the Cachet API (https://cachethq.io/).
 
 Construct a new Cachet client, then use the various services on the client to
 access different parts of the Cachet API. For example:
