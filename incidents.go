@@ -17,6 +17,11 @@ const (
 	IncidentStatusWatching = 3
 	// IncidentStatusFixed means "The fix has worked, you're happy to close the incident."
 	IncidentStatusFixed = 4
+
+	// IncidentVisibilityPublic means "Viewable by public"
+	IncidentVisibilityPublic = 1
+	// IncidentVisibilityLoggedIn means "Only visible to logged in users"
+	IncidentVisibilityLoggedIn = 0
 )
 
 // IncidentsService contains REST endpoints that belongs to cachet incidents.
