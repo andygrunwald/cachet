@@ -31,6 +31,7 @@ type Component struct {
 	Link        string `json:"link,omitempty"`
 	Status      int    `json:"status,omitempty"`
 	Order       int    `json:"order,omitempty"`
+	Enabled     bool   `json:"enabled,omitempty"`
 	GroupID     int    `json:"group_id,omitempty"`
 	CreatedAt   string `json:"created_at,omitempty"`
 	UpdatedAt   string `json:"updated_at,omitempty"`
