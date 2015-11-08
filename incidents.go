@@ -31,18 +31,19 @@ type IncidentsService struct {
 
 // Incident entity reflects one single incident
 type Incident struct {
-	ID          int    `json:"id,omitempty"`
-	ComponentID int    `json:"component_id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Status      int    `json:"status,omitempty"`
-	Visible     int    `json:"visible,omitempty"`
-	Message     string `json:"message,omitempty"`
-	ScheduledAt string `json:"scheduled_at,omitempty"`
-	CreatedAt   string `json:"created_at,omitempty"`
-	UpdatedAt   string `json:"updated_at,omitempty"`
-	DeletedAt   string `json:"deleted_at,omitempty"`
-	HumanStatus string `json:"human_status,omitempty"`
-	Notify      bool   `json:"notify,omitempty"`
+	ID              int    `json:"id,omitempty"`
+	ComponentID     int    `json:"component_id,omitempty"`
+	ComponentStatus int    `json:"component_status,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Status          int    `json:"status,omitempty"`
+	Visible         int    `json:"visible,omitempty"`
+	Message         string `json:"message,omitempty"`
+	ScheduledAt     string `json:"scheduled_at,omitempty"`
+	CreatedAt       string `json:"created_at,omitempty"`
+	UpdatedAt       string `json:"updated_at,omitempty"`
+	DeletedAt       string `json:"deleted_at,omitempty"`
+	HumanStatus     string `json:"human_status,omitempty"`
+	Notify          bool   `json:"notify,omitempty"`
 }
 
 // IncidentResponse reflects the response of /incidents call
