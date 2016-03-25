@@ -15,7 +15,10 @@ type AuthenticationService struct {
 	authType int
 }
 
-// SetBasicAuth sets basic parameters for HTTP Basic auth
+// SetBasicAuth sets basic parameters for HTTP Basic auth.
+// Attention! Basic Auth is no longer supported by Cachet since ~v2.1.
+// You can only use this if you running an older version.
+// Checkout https://github.com/CachetHQ/Cachet/issues/1658
 func (s *AuthenticationService) SetBasicAuth(username, password string) {
 	s.username = username
 	s.secret = password

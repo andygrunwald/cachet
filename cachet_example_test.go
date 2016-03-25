@@ -23,31 +23,20 @@ func ExampleGeneralService_Ping() {
 	// Status: 200 OK
 }
 
-func ExampleComponentsService_Create() {
+func ExampleComponentsService_Get() {
 	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
 	}
 
-	client.Authentication.SetBasicAuth("test@test.com", "test123")
-
-	component := &cachet.Component{
-		Name:        "Beer Fridge",
-		Description: "Status of the beer fridge in the kitchen",
-		Status:      cachet.ComponentStatusOperational,
-	}
-	newComponent, resp, err := client.Components.Create(component)
+	comp, resp, err := client.Components.Get(1)
 	if err != nil {
-		panic(err)
+		panic(resp)
 	}
 
-	fmt.Printf("Result: %s\n", newComponent.Name)
-	if newComponent.ID > 0 {
-		fmt.Println("ID > 0!")
-	}
+	fmt.Printf("Result: %s (ID: %d)\n", comp.Name, comp.ID)
 	fmt.Printf("Status: %s\n", resp.Status)
 
-	// Output: Result: Beer Fridge
-	// ID > 0!
+	// Output: Result: API (ID: 1)
 	// Status: 200 OK
 }
