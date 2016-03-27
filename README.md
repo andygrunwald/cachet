@@ -127,8 +127,17 @@ This project is released under the terms of the [MIT license](http://en.wikipedi
 
 ## Contribution and Contact
 
-Every kind of contribution is welcome!
+Contribution, in any kind of way, is highly welcome!
+It doesn't matter if you are not able to write code.
+Creating issues or holding talks and help other people to use [go-jira](https://github.com/andygrunwald/go-jira) is contribution, too!
+A few examples:
 
+* Correct typos in the README / documentation
+* Reporting bugs
+* Implement a new feature or endpoint
+* Sharing the love if [go-jira](https://github.com/andygrunwald/go-jira) and help people to get use to it
+
+If you are new to pull requests, checkout [Collaborating on projects using issues and pull requests / Creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
 If you've found a bug, a typo, have a question or a want to request new feature, please [report it as a GitHub issue](https://github.com/andygrunwald/cachet/issues).
 
 For other queries, i'm available on Twitter ([@andygrunwald](https://twitter.com/andygrunwald)).
