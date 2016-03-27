@@ -36,7 +36,7 @@ func TestComponentsService_GetAll(t *testing.T) {
 			},
 		},
 		Components: []Component{
-			Component{
+			{
 				ID:          1,
 				Name:        "API",
 				Description: "This is the Cachet API.",
@@ -212,7 +212,7 @@ func TestComponentsService_GetAllGroups(t *testing.T) {
 			},
 		},
 		ComponentGroups: []ComponentGroup{
-			ComponentGroup{
+			{
 				ID:        1,
 				Name:      "Websites",
 				Order:     1,

@@ -36,7 +36,7 @@ func TestMetricsService_GetAll(t *testing.T) {
 			},
 		},
 		Metrics: []Metric{
-			Metric{
+			{
 				ID:           1,
 				Name:         "Cups of coffee",
 				Suffix:       "Cups",
@@ -48,7 +48,7 @@ func TestMetricsService_GetAll(t *testing.T) {
 				UpdatedAt:    "2015-10-31 14:30:02",
 				Places:       2,
 				Points: []Point{
-					Point{
+					{
 						ID:        1,
 						MetricID:  1,
 						Value:     7,
@@ -91,7 +91,7 @@ func TestMetricsService_Get(t *testing.T) {
 		UpdatedAt:    "2015-10-31 14:30:02",
 		Places:       2,
 		Points: []Point{
-			Point{
+			{
 				ID:        1,
 				MetricID:  1,
 				Value:     7,
@@ -180,14 +180,14 @@ func TestMetricsService_GetPoints(t *testing.T) {
 	}
 
 	expected := &[]Point{
-		Point{
+		{
 			ID:        1,
 			MetricID:  1,
 			Value:     4,
 			CreatedAt: "2015-10-31 16:30:02",
 			UpdatedAt: "2015-10-31 16:30:02",
 		},
-		Point{
+		{
 			ID:        2,
 			MetricID:  1,
 			Value:     6,

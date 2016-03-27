@@ -36,7 +36,7 @@ func TestIncidentsService_GetAll(t *testing.T) {
 			},
 		},
 		Incidents: []Incident{
-			Incident{
+			{
 				ID:          1,
 				ComponentID: 0,
 				Name:        "Incident Name",
