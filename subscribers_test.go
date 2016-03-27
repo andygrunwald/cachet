@@ -36,7 +36,7 @@ func TestSubscribersService_GetAll(t *testing.T) {
 			},
 		},
 		Subscribers: []Subscriber{
-			Subscriber{
+			{
 				ID:         1,
 				EMail:      "support@alt-three.com",
 				VerifyCode: "1234567890",
