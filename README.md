@@ -3,7 +3,6 @@
 [![GoDoc](https://godoc.org/github.com/andygrunwald/cachet?status.svg)](https://godoc.org/github.com/andygrunwald/cachet)
 [![Build Status](https://travis-ci.org/andygrunwald/cachet.svg?branch=master)](https://travis-ci.org/andygrunwald/cachet)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygrunwald/cachet)](https://goreportcard.com/report/github.com/andygrunwald/cachet)
-[![Coverage Status](https://coveralls.io/repos/github/andygrunwald/cachet/badge.svg?branch=master)](https://coveralls.io/github/andygrunwald/cachet?branch=master)
 
 [Go(lang)](https://golang.org/) client library for [Cachet (open source status page system)](https://cachethq.io/).
 
