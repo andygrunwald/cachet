@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+// @todo: add missing request attributes
+
 const (
 	// Docs: https://docs.cachethq.io/docs/incident-statuses
 
