@@ -27,3 +27,16 @@ type Links struct {
 	NextPage     string `json:"next_page"`
 	PreviousPage string `json:"previous_page"`
 }
+
+// MetaVersion ...
+type MetaVersion struct {
+	OnLatest bool   `json:"on_latest"`
+	Latest   Latest `json:"latest"`
+}
+
+// Latest ...
+type Latest struct {
+	TagName  string `json:"tag_name"`
+	Prelease bool   `json:"prelease"`
+	Draft    bool   `json:"draft"`
+}

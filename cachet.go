@@ -26,10 +26,13 @@ type Client struct {
 	// Services used for talking to different parts of the Cachet API.
 	General         *GeneralService
 	Components      *ComponentsService
+	ComponentGroups *ComponentGroupsService
 	Incidents       *IncidentsService
 	IncidentUpdates *IncidentUpdatesService
 	Metrics         *MetricsService
+	Schedules       *SchedulesService
 	Subscribers     *SubscribersService
+	Subscriptions   *SubscriptionsService
 }
 
 // Response is a Cachet API response.
@@ -61,10 +64,13 @@ func NewClient(instance string, httpClient *http.Client) (*Client, error) {
 	c.Authentication = &AuthenticationService{client: c}
 	c.General = &GeneralService{client: c}
 	c.Components = &ComponentsService{client: c}
+	c.ComponentGroups = &ComponentGroupsService{client: c}
 	c.Incidents = &IncidentsService{client: c}
 	c.IncidentUpdates = &IncidentUpdatesService{client: c}
 	c.Metrics = &MetricsService{client: c}
+	c.Schedules = &SchedulesService{client: c}
 	c.Subscribers = &SubscribersService{client: c}
+	c.Subscriptions = &SubscriptionsService{client: c}
 
 	return c, nil
 }

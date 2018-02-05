@@ -55,7 +55,7 @@ A few more examples are available in the [GoDoc examples section](https://godoc.
 
 ### Ping
 
-Call the [API test endpoint](https://docs.cachethq.io/docs/ping). Example without error handling.
+Call the [API test endpoint](https://docs.cachethq.io/reference#ping). Example without error handling.
 Full example available in the [GoDoc examples section](https://godoc.org/github.com/andygrunwald/cachet#pkg-examples).
 
 ```go
@@ -80,7 +80,7 @@ func main() {
 
 ### Create a new component
 
-Calling [/components](https://docs.cachethq.io/docs/components). Example without error handling.
+Calling [/components](https://docs.cachethq.io/reference#components). Example without error handling.
 Full example available in the [GoDoc examples section](https://godoc.org/github.com/andygrunwald/cachet#pkg-examples).
 
 ```go

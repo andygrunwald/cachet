@@ -4,8 +4,6 @@ import (
 	"fmt"
 )
 
-// @todo: add missing request attributes
-
 const (
 	// Docs: https://docs.cachethq.io/docs/incident-statuses
 
@@ -33,19 +31,30 @@ type IncidentsService struct {
 
 // Incident entity reflects one single incident
 type Incident struct {
-	ID              int    `json:"id,omitempty"`
-	ComponentID     int    `json:"component_id,omitempty"`
-	ComponentStatus int    `json:"component_status,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Status          int    `json:"status,omitempty"`
-	Visible         int    `json:"visible,omitempty"`
-	Message         string `json:"message,omitempty"`
-	ScheduledAt     string `json:"scheduled_at,omitempty"`
-	CreatedAt       string `json:"created_at,omitempty"`
-	UpdatedAt       string `json:"updated_at,omitempty"`
-	DeletedAt       string `json:"deleted_at,omitempty"`
-	HumanStatus     string `json:"human_status,omitempty"`
-	Notify          bool   `json:"notify,omitempty"`
+	ID                int               `json:"id,omitempty"`
+	Name              string            `json:"name,omitempty"`
+	Status            int               `json:"status,omitempty"`
+	Message           string            `json:"message,omitempty"`
+	Visible           int               `json:"visible,omitempty"`
+	ComponentID       int               `json:"component_id,omitempty"`
+	ComponentStatus   int               `json:"component_status,omitempty"`
+	Notify            bool              `json:"notify,omitempty"`
+	Stickied          bool              `json:"stickied,omitempty"`
+	OccuredAt         string            `json:"occurred_at,omitempty"`
+	Template          string            `json:"template,omitempty"`
+	Vars              []string          `json:"vars,omitempty"`
+	CreatedAt         string            `json:"created_at,omitempty"`
+	UpdatedAt         string            `json:"updated_at,omitempty"`
+	DeletedAt         string            `json:"deleted_at,omitempty"`
+	isResolved        bool              `json:"is_resolved,omitempty"`
+	Updates           []*IncidentUpdate `json:"updates,omitempty"`
+	HumanStatus       string            `json:"human_status,omitempty"`
+	LatestUpdateId    int               `json:"latest_update_id,omitempty"`
+	LatestStatus      int               `json:"latest_status,omitempty"`
+	LatestHumanStatus string            `json:"latest_human_status,omitempty"`
+	LatestIcon        string            `json:"latest_icon,omitempty"`
+	Permalink         string            `json:"permalink,omitempty"`
+	Duration          int               `json"duration,omitempty"`
 }
 
 // IncidentResponse reflects the response of /incidents call
@@ -63,7 +72,7 @@ type incidentsAPIResponse struct {
 
 // GetAll return all incidents.
 //
-// Docs: https://docs.cachethq.io/docs/get-incidents
+// Docs: https://docs.cachethq.io/reference#get-incidents
 func (s *IncidentsService) GetAll() (*IncidentResponse, *Response, error) {
 	u := "api/v1/incidents"
 	v := new(IncidentResponse)
@@ -74,7 +83,7 @@ func (s *IncidentsService) GetAll() (*IncidentResponse, *Response, error) {
 
 // Get returns a single incident.
 //
-// Docs: https://docs.cachethq.io/docs/get-an-incident
+// Docs: https://docs.cachethq.io/reference#get-an-incident
 func (s *IncidentsService) Get(id int) (*Incident, *Response, error) {
 	u := fmt.Sprintf("api/v1/incidents/%d", id)
 	v := new(incidentsAPIResponse)
@@ -85,7 +94,7 @@ func (s *IncidentsService) Get(id int) (*Incident, *Response, error) {
 
 // Create a new incident.
 //
-// Docs: https://docs.cachethq.io/docs/incidents
+// Docs: https://docs.cachethq.io/reference#incidents
 func (s *IncidentsService) Create(i *Incident) (*Incident, *Response, error) {
 	u := "api/v1/incidents"
 	v := new(incidentsAPIResponse)
@@ -96,7 +105,7 @@ func (s *IncidentsService) Create(i *Incident) (*Incident, *Response, error) {
 
 // Update updates an incident.
 //
-// Docs: https://docs.cachethq.io/docs/update-an-incident
+// Docs: https://docs.cachethq.io/reference#update-an-incident
 func (s *IncidentsService) Update(id int, i *Incident) (*Incident, *Response, error) {
 	u := fmt.Sprintf("api/v1/incidents/%d", id)
 	v := new(incidentsAPIResponse)
@@ -107,7 +116,7 @@ func (s *IncidentsService) Update(id int, i *Incident) (*Incident, *Response, er
 
 // Delete delete an incident.
 //
-// Docs: https://docs.cachethq.io/docs/delete-an-incident
+// Docs: https://docs.cachethq.io/reference#delete-an-incident
 func (s *IncidentsService) Delete(id int) (*Response, error) {
 	u := fmt.Sprintf("api/v1/incidents/%d", id)
 

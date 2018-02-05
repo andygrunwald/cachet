@@ -41,10 +41,16 @@ type IncidentUpdatesService struct {
 // IncidentUpdate entity reflects one single incident update
 type IncidentUpdate struct {
 	ID              int    `json:"id,omitempty"`
+	IncidentID      int    `json:"incident_id,omitempty"`
 	ComponentID     int    `json:"component_id,omitempty"`
-	ComponentStatus int    `json:"component_status,omitempty"`
+	ComponentStatus int    `json:"component_id,omitempty"`
 	Status          int    `json:"status,omitempty"`
 	Message         string `json:"message,omitempty"`
+	UserID          int    `json:"user_id,omitempty"`
+	CreatedAt       string `json:"created_at,omitempty"`
+	UpdatedAt       string `json:"updated_at,omitempty"`
+	HumanStatus     string `json:"human_status,omitempty"`
+	Permalink       string `json:"permalink,omitempty"`
 }
 
 // IncidentUpdateResponse reflects the response of /incident updates call

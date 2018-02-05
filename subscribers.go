@@ -12,7 +12,7 @@ type SubscribersService struct {
 // Subscriber entity reflects one single subscriber
 type Subscriber struct {
 	ID         int    `json:"id,omitempty"`
-	EMail      string `json:"email,omitempty"`
+	Email      string `json:"email,omitempty"`
 	VerifyCode string `json:"verify_code,omitempty"`
 	VerifiedAt string `json:"verified_at,omitempty"`
 	CreatedAt  string `json:"created_at,omitempty"`
@@ -34,7 +34,7 @@ type subscriberAPIResponse struct {
 
 // GetAll returns all subscribers.
 //
-// Docs: https://docs.cachethq.io/docs/get-subscribers
+// Docs: https://docs.cachethq.io/reference#get-subscribers
 func (s *SubscribersService) GetAll() (*SubscriberResponse, *Response, error) {
 	u := "api/v1/subscribers"
 	v := new(SubscriberResponse)
@@ -45,16 +45,16 @@ func (s *SubscribersService) GetAll() (*SubscriberResponse, *Response, error) {
 
 // Create a new subscriber.
 //
-// Docs: https://docs.cachethq.io/docs/subscribers
+// Docs: https://docs.cachethq.io/reference#subscribers
 func (s *SubscribersService) Create(email string, verify int) (*Subscriber, *Response, error) {
 	u := "api/v1/subscribers"
 	v := new(subscriberAPIResponse)
 
 	c := struct {
-		EMail  string `json:"email"`
+		Email  string `json:"email"`
 		Verify int    `json:"verify"`
 	}{
-		EMail:  email,
+		Email:  email,
 		Verify: verify,
 	}
 
@@ -64,7 +64,7 @@ func (s *SubscribersService) Create(email string, verify int) (*Subscriber, *Res
 
 // Delete a subscriber.
 //
-// Docs: https://docs.cachethq.io/docs/delete-subscriber
+// Docs: https://docs.cachethq.io/reference#delete-subscriber
 func (s *SubscribersService) Delete(id int) (*Response, error) {
 	u := fmt.Sprintf("api/v1/subscribers/%d", id)
 
