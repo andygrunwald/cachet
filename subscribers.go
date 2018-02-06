@@ -35,9 +35,14 @@ type subscriberAPIResponse struct {
 // GetAll returns all subscribers.
 //
 // Docs: https://docs.cachethq.io/docs/get-subscribers
-func (s *SubscribersService) GetAll() (*SubscriberResponse, *Response, error) {
+func (s *SubscribersService) GetAll(opt *ListOptions) (*SubscriberResponse, *Response, error) {
 	u := "api/v1/subscribers"
 	v := new(SubscriberResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
