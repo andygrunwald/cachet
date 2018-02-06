@@ -46,15 +46,15 @@ type Incident struct {
 	CreatedAt         string            `json:"created_at,omitempty"`
 	UpdatedAt         string            `json:"updated_at,omitempty"`
 	DeletedAt         string            `json:"deleted_at,omitempty"`
-	isResolved        bool              `json:"is_resolved,omitempty"`
+	IsResolved        bool              `json:"is_resolved,omitempty"`
 	Updates           []*IncidentUpdate `json:"updates,omitempty"`
 	HumanStatus       string            `json:"human_status,omitempty"`
-	LatestUpdateId    int               `json:"latest_update_id,omitempty"`
+	LatestUpdateID    int               `json:"latest_update_id,omitempty"`
 	LatestStatus      int               `json:"latest_status,omitempty"`
 	LatestHumanStatus string            `json:"latest_human_status,omitempty"`
 	LatestIcon        string            `json:"latest_icon,omitempty"`
 	Permalink         string            `json:"permalink,omitempty"`
-	Duration          int               `json"duration,omitempty"`
+	Duration          int               `json:"duration,omitempty"`
 }
 
 // IncidentResponse reflects the response of /incidents call
