@@ -39,7 +39,7 @@ type ScheduleResponse struct {
 // schedulesAPIResponse is an internal type to hide
 // some the "data" nested level from the API.
 // Some calls (e.g. Get or Create) return the incident in the "data" key.
-type incidentUpdatesAPIResponse struct {
+type schedulesAPIResponse struct {
 	Data *Schedule `json:"data"`
 }
 
@@ -59,7 +59,7 @@ func (s *SchedulesService) GetAll() (*ScheduleResponse, *Response, error) {
 // Docs: https://docs.cachethq.io/reference#incidentsidupdatesid
 func (s *SchedulesService) Get(id int) (*Schedule, *Response, error) {
 	u := fmt.Sprintf("api/v1/schedules/%d", id)
-	v := new(incidentUpdatesAPIResponse)
+	v := new(schedulesAPIResponse)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v.Data, resp, err
@@ -70,7 +70,7 @@ func (s *SchedulesService) Get(id int) (*Schedule, *Response, error) {
 // Docs: https://docs.cachethq.io/reference#incidentsincidentupdates
 func (s *SchedulesService) Create(i *Schedule) (*Schedule, *Response, error) {
 	u := "api/v1/schedules"
-	v := new(incidentUpdatesAPIResponse)
+	v := new(schedulesAPIResponse)
 
 	resp, err := s.client.Call("POST", u, i, v)
 	return v.Data, resp, err
@@ -81,7 +81,7 @@ func (s *SchedulesService) Create(i *Schedule) (*Schedule, *Response, error) {
 // Docs: https://docs.cachethq.io/reference#incidentsincidentupdatesupdate-1
 func (s *SchedulesService) Update(id int, i *Schedule) (*Schedule, *Response, error) {
 	u := fmt.Sprintf("api/v1/schedules/%d", id)
-	v := new(incidentUpdatesAPIResponse)
+	v := new(schedulesAPIResponse)
 
 	resp, err := s.client.Call("PUT", u, i, v)
 	return v.Data, resp, err

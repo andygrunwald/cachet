@@ -18,8 +18,7 @@ type VersionResponse struct {
 
 // StatusResponse entity contains the Response of a /status call.
 type StatusResponse struct {
-	Status  string `json:"data,omitempty"`
-	Message string `json:"data,omitempty"`
+	Data string `json:"data,omitempty"`
 }
 
 // Ping calls the API test endpoint.

@@ -4,35 +4,6 @@ import (
 	"fmt"
 )
 
-// @todo: add constants to component status
-
-const (
-	// Docs: https://docs.cachethq.io/docs/incident-statuses
-
-	// IncidentStatusScheduled means "This status is used for a scheduled status."
-	IncidentStatusScheduled = 0
-	// IncidentStatusInvestigating means "You have reports of a problem and you're currently looking into them."
-	IncidentStatusInvestigating = 1
-	// IncidentStatusIdentified means "You've found the issue and you're working on a fix."
-	IncidentStatusIdentified = 2
-	// IncidentStatusWatching means "You've since deployed a fix and you're currently watching the situation."
-	IncidentStatusWatching = 3
-	// IncidentStatusFixed means "The fix has worked, you're happy to close the incident."
-	IncidentStatusFixed = 4
-
-	// ComponentStatusUnknown means "The component's status is not known."
-	ComponentStatusUnknown = 0
-	// ComponentStatusOperational means "The component is working."
-	ComponentStatusOperational = 1
-	// ComponentStatusPerformanceIssues means "The component is experiencing some slowness."
-	ComponentStatusPerformanceIssues = 2
-	// ComponentStatusPartialOutage means "The component may not be working for everybody."
-	// This could be a geographical issue for example.
-	ComponentStatusPartialOutage = 3
-	// ComponentStatusMajorOutage means "The component is not working for anybody."
-	ComponentStatusMajorOutage = 4
-)
-
 // IncidentUpdatesService contains REST endpoints that belongs to cachet incidents.
 type IncidentUpdatesService struct {
 	client *Client
@@ -43,7 +14,7 @@ type IncidentUpdate struct {
 	ID              int    `json:"id,omitempty"`
 	IncidentID      int    `json:"incident_id,omitempty"`
 	ComponentID     int    `json:"component_id,omitempty"`
-	ComponentStatus int    `json:"component_id,omitempty"`
+	ComponentStatus int    `json:"component_status,omitempty"`
 	Status          int    `json:"status,omitempty"`
 	Message         string `json:"message,omitempty"`
 	UserID          int    `json:"user_id,omitempty"`

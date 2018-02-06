@@ -16,11 +16,6 @@ type ComponentGroupsService struct {
 	client *Client
 }
 
-// Tag ...
-type Tag struct {
-	Tag string `json:",omitempty"`
-}
-
 // ComponentGroup entity reflects one single component group
 type ComponentGroup struct {
 	ID                      int          `json:"id,omitempty"`
