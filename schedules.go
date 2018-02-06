@@ -20,14 +20,16 @@ type SchedulesService struct {
 
 // Schedule entity reflects one single schedule
 type Schedule struct {
-	ID          int          `json:"id,omitempty"`
-	Name        string       `json:"name,omitempty"`
-	Message     string       `json:"message,omitempty"`
-	Status      int          `json:"status,omitempty"`
-	ScheduledAt string       `json:"scheduled_at,omitempty"`
-	CompletedAt string       `json:"completed_at,omitempty"`
-	Components  []*Component `json:"components,omitempty"`
-	HumanStatus string       `json:"human_status,omitempty"`
+	ID          int         `json:"id,omitempty"`
+	Name        string      `json:"name,omitempty"`
+	Message     string      `json:"message,omitempty"`
+	Status      int         `json:"status,omitempty"`
+	ScheduledAt string      `json:"scheduled_at,omitempty"`
+	CompletedAt string      `json:"completed_at,omitempty"`
+	CreatedAt   string      `json:"created_at,omitempty"`
+	UpdatedAt   string      `json:"updated_at,omitempty"`
+	Components  []Component `json:"components,omitempty"`
+	HumanStatus string      `json:"human_status,omitempty"`
 }
 
 // ScheduleResponse reflects the response of schedules call

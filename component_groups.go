@@ -18,16 +18,16 @@ type ComponentGroupsService struct {
 
 // ComponentGroup entity reflects one single component group
 type ComponentGroup struct {
-	ID                      int          `json:"id,omitempty"`
-	Name                    string       `json:"name,omitempty"`
-	Order                   int          `json:"order,omitempty"`
-	Collapsed               int          `json:"collapsed,omitempty"`
-	Visible                 int          `json:"visible,omitempty"`
-	CreatedAt               string       `json:",omitempty"`
-	UpdatedAt               string       `json:",omitempty"`
-	EnabledComponents       []*Component `json:",omitempty"`
-	EnabledComponentsLowest []*Component `json:",omitempty"`
-	LowestHumanStatus       string       `json:",omitempty"`
+	ID                      int         `json:"id,omitempty"`
+	Name                    string      `json:"name,omitempty"`
+	Order                   int         `json:"order,omitempty"`
+	Collapsed               int         `json:"collapsed,omitempty"`
+	Visible                 int         `json:"visible,omitempty"`
+	CreatedAt               string      `json:"created_at,omitempty"`
+	UpdatedAt               string      `json:"updated_at,omitempty"`
+	EnabledComponents       []Component `json:"enabled_components,omitempty"`
+	EnabledComponentsLowest []Component `json:"enabled_components_lowest,omitempty"`
+	LowestHumanStatus       string      `json:"lowest_human_status,omitempty"`
 }
 
 // ComponentGroupResponse reflects the response of /components/groups call

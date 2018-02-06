@@ -24,8 +24,9 @@ type ComponentsService struct {
 	client *Client
 }
 
+// Tag ...
 type Tag struct {
-	Tag string `json:",omitempty"`
+	Tag string `json:"tag,omitempty"`
 }
 
 // Component entity reflects one single component
@@ -36,13 +37,13 @@ type Component struct {
 	Link        string `json:"link,omitempty"`
 	Status      int    `json:"status,omitempty"`
 	Order       int    `json:"order,omitempty"`
-	Enabled     bool   `json:"enabled"`
+	Enabled     bool   `json:"enabled,omitempty"`
 	GroupID     int    `json:"group_id,omitempty"`
 	CreatedAt   string `json:"created_at,omitempty"`
 	UpdatedAt   string `json:"updated_at,omitempty"`
 	DeletedAt   string `json:"deleted_at,omitempty"`
 	StatusName  string `json:"status_name,omitempty"`
-	Tags        []Tag  `json:",omitempty"`
+	Tags        []Tag  `json:"tags,omitempty"`
 }
 
 // ComponentResponse reflects the response of /components call

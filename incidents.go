@@ -31,30 +31,30 @@ type IncidentsService struct {
 
 // Incident entity reflects one single incident
 type Incident struct {
-	ID                int               `json:"id,omitempty"`
-	Name              string            `json:"name,omitempty"`
-	Status            int               `json:"status,omitempty"`
-	Message           string            `json:"message,omitempty"`
-	Visible           int               `json:"visible,omitempty"`
-	ComponentID       int               `json:"component_id,omitempty"`
-	ComponentStatus   int               `json:"component_status,omitempty"`
-	Notify            bool              `json:"notify,omitempty"`
-	Stickied          bool              `json:"stickied,omitempty"`
-	OccuredAt         string            `json:"occurred_at,omitempty"`
-	Template          string            `json:"template,omitempty"`
-	Vars              []string          `json:"vars,omitempty"`
-	CreatedAt         string            `json:"created_at,omitempty"`
-	UpdatedAt         string            `json:"updated_at,omitempty"`
-	DeletedAt         string            `json:"deleted_at,omitempty"`
-	IsResolved        bool              `json:"is_resolved,omitempty"`
-	Updates           []*IncidentUpdate `json:"updates,omitempty"`
-	HumanStatus       string            `json:"human_status,omitempty"`
-	LatestUpdateID    int               `json:"latest_update_id,omitempty"`
-	LatestStatus      int               `json:"latest_status,omitempty"`
-	LatestHumanStatus string            `json:"latest_human_status,omitempty"`
-	LatestIcon        string            `json:"latest_icon,omitempty"`
-	Permalink         string            `json:"permalink,omitempty"`
-	Duration          int               `json:"duration,omitempty"`
+	ID                int              `json:"id,omitempty"`
+	Name              string           `json:"name,omitempty"`
+	Status            int              `json:"status,omitempty"`
+	Message           string           `json:"message,omitempty"`
+	Visible           int              `json:"visible,omitempty"`
+	ComponentID       int              `json:"component_id,omitempty"`
+	ComponentStatus   int              `json:"component_status,omitempty"`
+	Notify            bool             `json:"notify,omitempty"`
+	Stickied          bool             `json:"stickied,omitempty"`
+	OccuredAt         string           `json:"occurred_at,omitempty"`
+	Template          string           `json:"template,omitempty"`
+	Vars              []string         `json:"vars,omitempty"`
+	CreatedAt         string           `json:"created_at,omitempty"`
+	UpdatedAt         string           `json:"updated_at,omitempty"`
+	DeletedAt         string           `json:"deleted_at,omitempty"`
+	IsResolved        bool             `json:"is_resolved,omitempty"`
+	Updates           []IncidentUpdate `json:"updates,omitempty"`
+	HumanStatus       string           `json:"human_status,omitempty"`
+	LatestUpdateID    int              `json:"latest_update_id,omitempty"`
+	LatestStatus      int              `json:"latest_status,omitempty"`
+	LatestHumanStatus string           `json:"latest_human_status,omitempty"`
+	LatestIcon        string           `json:"latest_icon,omitempty"`
+	Permalink         string           `json:"permalink,omitempty"`
+	Duration          int              `json:"duration,omitempty"`
 }
 
 // IncidentResponse reflects the response of /incidents call

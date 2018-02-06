@@ -49,7 +49,7 @@ type Metric struct {
 	Places          int    `json:"places,omitempty"`
 	DefaultView     int    `json:"default_view,omitempty"`
 	Threshold       int    `json:"threshold,omitempty"`
-	Order           int    `json:"visible,omitempty"`
+	Order           int    `json:"order,omitempty"`
 	Visible         int    `json:"visible,omitemtpy"`
 	CreatedAt       string `json:"created_at,omitempty"`
 	UpdatedAt       string `json:"updated_at,omitempty"`
@@ -58,11 +58,13 @@ type Metric struct {
 
 // Point is a single point in a Metric
 type Point struct {
-	ID        int    `json:"id,omitempty"`
-	MetricID  int    `json:"metric_id,omitempty"`
-	Value     int    `json:"value,omitempty"`
-	CreatedAt string `json:"created_at,omitempty"`
-	UpdatedAt string `json:"updated_at,omitempty"`
+	ID              int    `json:"id,omitempty"`
+	MetricID        int    `json:"metric_id,omitempty"`
+	Value           int    `json:"value,omitempty"`
+	CreatedAt       string `json:"created_at,omitempty"`
+	UpdatedAt       string `json:"updated_at,omitempty"`
+	Counter         int    `json:"counter,omitempty"`
+	CalculatedValue int    `json:"calculated_value,omitempty"`
 }
 
 // MetricResponse reflects the response of /metric call
