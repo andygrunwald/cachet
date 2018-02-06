@@ -16,7 +16,7 @@ func TestIncidentsService_GetAll(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}]}`)
 	})
 
-	got, _, err := testClient.Incidents.GetAll()
+	got, _, err := testClient.Incidents.GetAll(&ListOptions{})
 	if err != nil {
 		t.Errorf("Incidents.GetAll returned error: %v", err)
 	}
@@ -27,6 +27,56 @@ func TestIncidentsService_GetAll(t *testing.T) {
 				Total:       1,
 				Count:       1,
 				PerPage:     20,
+				CurrentPage: 1,
+				TotalPages:  1,
+				Links: Links{
+					NextPage:     "",
+					PreviousPage: "",
+				},
+			},
+		},
+		Incidents: []Incident{
+			{
+				ID:          1,
+				ComponentID: 0,
+				Name:        "Incident Name",
+				Status:      4,
+				Visible:     1,
+				Message:     "Incident Message",
+				ScheduledAt: "2015-08-01 12:00:00",
+				CreatedAt:   "2015-08-01 12:00:00",
+				UpdatedAt:   "2015-08-01 12:00:00",
+				DeletedAt:   "",
+				HumanStatus: "Fixed",
+			},
+		},
+	}
+
+	if !reflect.DeepEqual(got, expected) {
+		t.Errorf("Incidents.GetAll returned %+v, want %+v", got, expected)
+	}
+}
+
+func TestIncidentsService_GetAllWithOptions(t *testing.T) {
+	setup()
+	defer teardown()
+
+	testMux.HandleFunc("/api/v1/incidents", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":50,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}]}`)
+	})
+
+	got, _, err := testClient.Incidents.GetAll(&ListOptions{PerPage: 50})
+	if err != nil {
+		t.Errorf("Incidents.GetAll returned error: %v", err)
+	}
+
+	expected := &IncidentResponse{
+		Meta: Meta{
+			Pagination: Pagination{
+				Total:       1,
+				Count:       1,
+				PerPage:     50,
 				CurrentPage: 1,
 				TotalPages:  1,
 				Links: Links{
