@@ -16,6 +16,7 @@ type ComponentGroupsService struct {
 	client *Client
 }
 
+// Tag ...
 type Tag struct {
 	Tag string `json:",omitempty"`
 }
@@ -25,7 +26,7 @@ type ComponentGroup struct {
 	ID                      int          `json:"id,omitempty"`
 	Name                    string       `json:"name,omitempty"`
 	Order                   int          `json:"order,omitempty"`
-	Collapsed               int          `json: "collapsed,omitempty"`
+	Collapsed               int          `json:"collapsed,omitempty"`
 	Visible                 int          `json:"visible,omitempty"`
 	CreatedAt               string       `json:",omitempty"`
 	UpdatedAt               string       `json:",omitempty"`
@@ -47,10 +48,10 @@ type componentGroupAPIResponse struct {
 	Data *ComponentGroup `json:"data"`
 }
 
-// GetAllGroups return all component groups that have been created.
+// GetAll return all component groups that have been created.
 //
 // Docs: https://docs.cachethq.io/reference#get-componentgroups
-func (s *ComponentGroupsService) GetAllGroups() (*ComponentGroupResponse, *Response, error) {
+func (s *ComponentGroupsService) GetAll() (*ComponentGroupResponse, *Response, error) {
 	u := "api/v1/components/groups"
 	v := new(ComponentGroupResponse)
 
@@ -58,10 +59,10 @@ func (s *ComponentGroupsService) GetAllGroups() (*ComponentGroupResponse, *Respo
 	return v, resp, err
 }
 
-// GetGroup return a single component group.
+// Get return a single component group.
 //
 // Docs: https://docs.cachethq.io/reference#get-a-component-group
-func (s *ComponentGroupsService) GetGroup(id int) (*ComponentGroup, *Response, error) {
+func (s *ComponentGroupsService) Get(id int) (*ComponentGroup, *Response, error) {
 	u := fmt.Sprintf("api/v1/components/groups/%d", id)
 	v := new(componentGroupAPIResponse)
 
@@ -69,10 +70,10 @@ func (s *ComponentGroupsService) GetGroup(id int) (*ComponentGroup, *Response, e
 	return v.Data, resp, err
 }
 
-// CreateGroup creates a new component group.
+// Create creates a new component group.
 //
 // Docs: https://docs.cachethq.io/reference#post-componentgroups
-func (s *ComponentGroupsService) CreateGroup(c *ComponentGroup) (*ComponentGroup, *Response, error) {
+func (s *ComponentGroupsService) Create(c *ComponentGroup) (*ComponentGroup, *Response, error) {
 	u := "api/v1/components/groups"
 	v := new(componentGroupAPIResponse)
 
@@ -80,10 +81,10 @@ func (s *ComponentGroupsService) CreateGroup(c *ComponentGroup) (*ComponentGroup
 	return v.Data, resp, err
 }
 
-// UpdateGroup updates a component group.
+// Update updates a component group.
 //
 // Docs: https://docs.cachethq.io/reference#put-component-group
-func (s *ComponentGroupsService) UpdateGroup(id int, c *ComponentGroup) (*ComponentGroup, *Response, error) {
+func (s *ComponentGroupsService) Update(id int, c *ComponentGroup) (*ComponentGroup, *Response, error) {
 	u := fmt.Sprintf("api/v1/components/groups/%d", id)
 	v := new(componentGroupAPIResponse)
 
@@ -91,10 +92,10 @@ func (s *ComponentGroupsService) UpdateGroup(id int, c *ComponentGroup) (*Compon
 	return v.Data, resp, err
 }
 
-// DeleteGroup deletes a component group.
+// Delete deletes a component group.
 //
 // Docs: https://docs.cachethq.io/reference#delete-component-group
-func (s *ComponentGroupsService) DeleteGroup(id int) (*Response, error) {
+func (s *ComponentGroupsService) Delete(id int) (*Response, error) {
 	u := fmt.Sprintf("api/v1/components/groups/%d", id)
 
 	resp, err := s.client.Call("DELETE", u, nil, nil)
