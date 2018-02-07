@@ -5,11 +5,11 @@ import (
 )
 
 const (
-	// Upcoming
+	// ScheduleUpcoming means "This scheduled event is going to happen somewhere in the future."
 	ScheduleUpcoming = 0
-	// In Progress
+	// ScheduleInProgress means "This scheduled event is happening at the moment."
 	ScheduleInProgress = 1
-	// Complete
+	// ScheduleComplete means "This scheduled event has already finished."
 	ScheduleComplete = 2
 )
 

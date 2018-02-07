@@ -134,7 +134,7 @@ func TestNewRequest(t *testing.T) {
 	}
 
 	inURL, outURL := "/foo", testCachetInstance+"foo"
-	inBody, outBody := &Component{Name: "Go API (by Token)", Status: 1, Enabled: false}, `{"name":"Go API (by Token)","status":1,"enabled":false}`+"\n"
+	inBody, outBody := &Component{Name: "Go API (by Token)", Status: 1, Enabled: false}, `{"name":"Go API (by Token)","status":1}`+"\n"
 	req, _ := c.NewRequest("POST", inURL, inBody)
 
 	// Test that relative URL was expanded
