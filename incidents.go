@@ -40,7 +40,7 @@ type Incident struct {
 	ComponentStatus   int              `json:"component_status,omitempty"`
 	Notify            bool             `json:"notify,omitempty"`
 	Stickied          bool             `json:"stickied,omitempty"`
-	OccuredAt         string           `json:"occurred_at,omitempty"`
+	OccurredAt        string           `json:"occurred_at,omitempty"`
 	Template          string           `json:"template,omitempty"`
 	Vars              []string         `json:"vars,omitempty"`
 	CreatedAt         string           `json:"created_at,omitempty"`

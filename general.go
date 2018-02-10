@@ -16,13 +16,13 @@ type VersionResponse struct {
 	Data string      `json:"data,omitempty"`
 }
 
-// StatusResponse entity contains the Response of a /status call.
-type StatusResponse struct {
-	Data *StatusAPIResponse `json:"data"`
+// StatusAPIResponse entity contains the Response of a /status call.
+type StatusAPIResponse struct {
+	Data *Status `json:"data"`
 }
 
-// StatusAPIResponse entity contains the contents of API Response of a /status call.
-type StatusAPIResponse struct {
+// Status entity contains the contents of API Response of a /status call.
+type Status struct {
 	Status  string `json:"status,omitempty"`
 	Message string `json:"message,omitempty"`
 }
@@ -41,20 +41,20 @@ func (s *GeneralService) Ping() (string, *Response, error) {
 // Version get Cachet version
 //
 // Docs: https://docs.cachethq.io/reference#version
-func (s *GeneralService) Version() (string, *Response, error) {
+func (s *GeneralService) Version() (*VersionResponse, *Response, error) {
 	u := "api/v1/version"
 	v := new(VersionResponse)
 
 	resp, err := s.client.Call("GET", u, nil, v)
-	return v.Data, resp, err
+	return v, resp, err
 }
 
 // Status get Cachet status
 //
 // Docs: <none>
-func (s *GeneralService) Status() (*StatusAPIResponse, *Response, error) {
+func (s *GeneralService) Status() (*Status, *Response, error) {
 	u := "api/v1/status"
-	v := new(StatusResponse)
+	v := new(StatusAPIResponse)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v.Data, resp, err

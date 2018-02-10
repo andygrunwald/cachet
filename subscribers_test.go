@@ -38,7 +38,7 @@ func TestSubscribersService_GetAll(t *testing.T) {
 		Subscribers: []Subscriber{
 			{
 				ID:         1,
-				EMail:      "support@alt-three.com",
+				Email:      "support@alt-three.com",
 				VerifyCode: "1234567890",
 				VerifiedAt: "2015-07-24 14:42:24",
 				CreatedAt:  "2015-07-24 14:42:24",
@@ -68,7 +68,7 @@ func TestSubscribersService_Create(t *testing.T) {
 
 	expected := &Subscriber{
 		ID:         1,
-		EMail:      "support@alt-three.com",
+		Email:      "support@alt-three.com",
 		VerifyCode: "1234567890",
 		VerifiedAt: "2015-07-24 14:42:24",
 		CreatedAt:  "2015-07-24 14:42:24",

@@ -16,9 +16,9 @@ func TestComponentsService_GetAllGroups(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"name":"Websites","created_at":"2015-11-07 16:30:02","updated_at":"2015-11-07 16:30:02","order":1}]}`)
 	})
 
-	got, _, err := testClient.Components.GetAllGroups()
+	got, _, err := testClient.ComponentGroups.GetAll()
 	if err != nil {
-		t.Errorf("Components.GetAllGroups returned error: %v", err)
+		t.Errorf("ComponentGroups.GetAll returned error: %v", err)
 	}
 
 	expected := &ComponentGroupResponse{
@@ -60,9 +60,9 @@ func TestComponentsService_GetGroup(t *testing.T) {
 		fmt.Fprint(w, `{"data":{"id":1,"name":"Websites","created_at":"2015-11-07 16:30:02","updated_at":"2015-11-07 16:30:02","order":1}}`)
 	})
 
-	got, _, err := testClient.Components.GetGroup(1)
+	got, _, err := testClient.ComponentGroups.Get(1)
 	if err != nil {
-		t.Errorf("Components.GetGroup returned error: %v", err)
+		t.Errorf("ComponentGroups.Get returned error: %v", err)
 	}
 
 	expected := &ComponentGroup{
@@ -91,9 +91,9 @@ func TestComponentsService_CreateGroup(t *testing.T) {
 		Name:  "UnitTest",
 		Order: 2,
 	}
-	got, _, err := testClient.Components.CreateGroup(cg)
+	got, _, err := testClient.ComponentGroups.Create(cg)
 	if err != nil {
-		t.Errorf("Components.CreateGroup returned error: %v", err)
+		t.Errorf("ComponentGroups.Create returned error: %v", err)
 	}
 
 	expected := &ComponentGroup{
@@ -105,7 +105,7 @@ func TestComponentsService_CreateGroup(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Components.CreateGroup returned %+v, want %+v", got, expected)
+		t.Errorf("ComponentGroups.Create returned %+v, want %+v", got, expected)
 	}
 }
 
@@ -122,9 +122,9 @@ func TestComponentsService_UpdateGroup(t *testing.T) {
 		Name:  "Updated Component",
 		Order: 3,
 	}
-	got, _, err := testClient.Components.UpdateGroup(1, cg)
+	got, _, err := testClient.ComponentGroups.Update(1, cg)
 	if err != nil {
-		t.Errorf("Components.Update returned error: %v", err)
+		t.Errorf("ComponentGroups.Update returned error: %v", err)
 	}
 
 	expected := &ComponentGroup{
@@ -136,7 +136,7 @@ func TestComponentsService_UpdateGroup(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Components.UpdateGroup returned %+v, want %+v", got, expected)
+		t.Errorf("ComponentGroups.Update returned %+v, want %+v", got, expected)
 	}
 }
 
@@ -149,12 +149,12 @@ func TestComponentsService_DeleteGroup(t *testing.T) {
 		w.WriteHeader(http.StatusNoContent)
 	})
 
-	resp, err := testClient.Components.DeleteGroup(1)
+	resp, err := testClient.ComponentGroups.Delete(1)
 	if err != nil {
-		t.Errorf("Components.DeleteGroup returned error: %v", err)
+		t.Errorf("ComponentGroups.Delete returned error: %v", err)
 	}
 
 	if resp.StatusCode != http.StatusNoContent {
-		t.Errorf("Components.DeleteGroup returned status %+v, want %+v", resp.StatusCode, http.StatusNoContent)
+		t.Errorf("ComponentGroups.Delete returned status %+v, want %+v", resp.StatusCode, http.StatusNoContent)
 	}
 }

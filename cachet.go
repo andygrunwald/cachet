@@ -50,7 +50,7 @@ func NewClient(instance string, httpClient *http.Client) (*Client, error) {
 	}
 
 	if len(instance) == 0 {
-		return nil, fmt.Errorf("No Cachet instance given.")
+		return nil, fmt.Errorf("No Cachet instance given")
 	}
 	baseURL, err := url.Parse(instance)
 	if err != nil {
