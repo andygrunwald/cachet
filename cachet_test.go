@@ -130,7 +130,7 @@ func TestNewClient_Services(t *testing.T) {
 func TestNewRequest(t *testing.T) {
 	c, err := NewClient(testCachetInstance, nil)
 	if err != nil {
-		t.Errorf("An error occured. Expected nil. Got %+v.", err)
+		t.Errorf("An error occurred. Expected nil. Got %+v.", err)
 	}
 
 	inURL, outURL := "/foo", testCachetInstance+"foo"

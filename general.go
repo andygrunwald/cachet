@@ -16,8 +16,8 @@ type VersionResponse struct {
 	Data string      `json:"data,omitempty"`
 }
 
-// StatusResponse entity contains the Response of a /status call.
-type StatusResponse struct {
+// StatusAPIResponse entity contains the Response of a /status call.
+type StatusAPIResponse struct {
 	Data *Status `json:"data"`
 }
 
@@ -54,7 +54,7 @@ func (s *GeneralService) Version() (*VersionResponse, *Response, error) {
 // Docs: <none>
 func (s *GeneralService) Status() (*Status, *Response, error) {
 	u := "api/v1/status"
-	v := new(StatusResponse)
+	v := new(StatusAPIResponse)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v.Data, resp, err

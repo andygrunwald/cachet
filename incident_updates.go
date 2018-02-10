@@ -40,8 +40,8 @@ type incidentUpdatesAPIResponse struct {
 // GetAll return all updates by incident.
 //
 // Docs: https://docs.cachethq.io/reference#incidentsidupdates
-func (s *IncidentUpdatesService) GetAll(incidentId int) (*IncidentUpdateResponse, *Response, error) {
-	u := fmt.Sprintf("api/v1/incidents/%d/updates", incidentId)
+func (s *IncidentUpdatesService) GetAll(incidentID int) (*IncidentUpdateResponse, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates", incidentID)
 	v := new(IncidentUpdateResponse)
 
 	resp, err := s.client.Call("GET", u, nil, v)
@@ -51,8 +51,8 @@ func (s *IncidentUpdatesService) GetAll(incidentId int) (*IncidentUpdateResponse
 // Get returns a single incident update.
 //
 // Docs: https://docs.cachethq.io/reference#incidentsidupdatesid
-func (s *IncidentUpdatesService) Get(incidentId int, updateId int) (*IncidentUpdate, *Response, error) {
-	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", incidentId, updateId)
+func (s *IncidentUpdatesService) Get(incidentID int, updateID int) (*IncidentUpdate, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", incidentID, updateID)
 	v := new(incidentUpdatesAPIResponse)
 
 	resp, err := s.client.Call("GET", u, nil, v)
@@ -62,8 +62,8 @@ func (s *IncidentUpdatesService) Get(incidentId int, updateId int) (*IncidentUpd
 // Create creates a new incident update.
 //
 // Docs: https://docs.cachethq.io/reference#incidentsincidentupdates
-func (s *IncidentUpdatesService) Create(incidentId int, i *IncidentUpdate) (*IncidentUpdate, *Response, error) {
-	u := fmt.Sprintf("api/v1/incidents/%d/updates", incidentId)
+func (s *IncidentUpdatesService) Create(incidentID int, i *IncidentUpdate) (*IncidentUpdate, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates", incidentID)
 	v := new(incidentUpdatesAPIResponse)
 
 	resp, err := s.client.Call("POST", u, i, v)
@@ -73,8 +73,8 @@ func (s *IncidentUpdatesService) Create(incidentId int, i *IncidentUpdate) (*Inc
 // Update updates an incident update.
 //
 // Docs: https://docs.cachethq.io/reference#incidentsincidentupdatesupdate-1
-func (s *IncidentUpdatesService) Update(incidentId int, updateId int, i *IncidentUpdate) (*IncidentUpdate, *Response, error) {
-	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", incidentId, updateId)
+func (s *IncidentUpdatesService) Update(incidentID int, updateID int, i *IncidentUpdate) (*IncidentUpdate, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", incidentID, updateID)
 	v := new(incidentUpdatesAPIResponse)
 
 	resp, err := s.client.Call("PUT", u, i, v)
@@ -84,8 +84,8 @@ func (s *IncidentUpdatesService) Update(incidentId int, updateId int, i *Inciden
 // Delete deletes an incident update.
 //
 // Docs: https://docs.cachethq.io/reference#incidentsincidentupdatesupdate
-func (s *IncidentUpdatesService) Delete(incidentId int, updateId int) (*Response, error) {
-	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", incidentId, updateId)
+func (s *IncidentUpdatesService) Delete(incidentID int, updateID int) (*Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", incidentID, updateID)
 
 	resp, err := s.client.Call("DELETE", u, nil, nil)
 	return resp, err

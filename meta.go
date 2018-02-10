@@ -40,3 +40,10 @@ type Latest struct {
 	Prelease bool   `json:"prelease"`
 	Draft    bool   `json:"draft"`
 }
+
+// SortOrdering ...
+type SortOrdering struct {
+	Sort    string `json:"sort"`
+	Order   string `json:"order"`
+	PerPage int    `json:"per_page"`
+}
