@@ -77,9 +77,14 @@ type componentGroupAPIResponse struct {
 // GetAll return all components that have been created.
 //
 // Docs: https://docs.cachethq.io/docs/get-components
-func (s *ComponentsService) GetAll() (*ComponentResponse, *Response, error) {
+func (s *ComponentsService) GetAll(opt *ListOptions) (*ComponentResponse, *Response, error) {
 	u := "api/v1/components"
 	v := new(ComponentResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
@@ -131,9 +136,14 @@ func (s *ComponentsService) Delete(id int) (*Response, error) {
 // GetAllGroups return all component groups that have been created.
 //
 // Docs: https://docs.cachethq.io/docs/get-componentgroups
-func (s *ComponentsService) GetAllGroups() (*ComponentGroupResponse, *Response, error) {
+func (s *ComponentsService) GetAllGroups(opt *ListOptions) (*ComponentGroupResponse, *Response, error) {
 	u := "api/v1/components/groups"
 	v := new(ComponentGroupResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err

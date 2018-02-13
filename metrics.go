@@ -70,9 +70,14 @@ type metricPointAPIResponse struct {
 // GetAll returns all metrics that have been setup.
 //
 // Docs: https://docs.cachethq.io/docs/get-metrics
-func (s *MetricsService) GetAll() (*MetricResponse, *Response, error) {
+func (s *MetricsService) GetAll(opt *ListOptions) (*MetricResponse, *Response, error) {
 	u := "api/v1/metrics"
 	v := new(MetricResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err

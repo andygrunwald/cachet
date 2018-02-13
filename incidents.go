@@ -62,9 +62,14 @@ type incidentsAPIResponse struct {
 // GetAll return all incidents.
 //
 // Docs: https://docs.cachethq.io/docs/get-incidents
-func (s *IncidentsService) GetAll() (*IncidentResponse, *Response, error) {
+func (s *IncidentsService) GetAll(opt *ListOptions) (*IncidentResponse, *Response, error) {
 	u := "api/v1/incidents"
 	v := new(IncidentResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
