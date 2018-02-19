@@ -46,10 +46,29 @@ type Incident struct {
 	Notify          bool   `json:"notify,omitempty"`
 }
 
+// IncidentUpdate entity reflects one single incident update
+type IncidentUpdate struct {
+	ID          int    `json:"id,omitempty"`
+	IncidentID  int    `json:"incident_id,omitempty"`
+	Status      int    `json:"status,omitempty"`
+	Message     string `json:"message,omitempty"`
+	UserID      int    `json:"user_id,omitempty"`
+	CreatedAt   string `json:"created_at,omitempty"`
+	UpdatedAt   string `json:"updated_at,omitempty"`
+	HumanStatus string `json:"human_status,omitempty"`
+	Permalink   string `json:"permalink,omitempty"`
+}
+
 // IncidentResponse reflects the response of /incidents call
 type IncidentResponse struct {
 	Meta      Meta       `json:"meta,omitempty"`
 	Incidents []Incident `json:"data,omitempty"`
+}
+
+// IncidentUpdate reflects the response of /incidents/:incident/updates call
+type IncidentUpdateResponse struct {
+	Meta            Meta             `json:"meta,omitempty"`
+	IncidentUpdates []IncidentUpdate `json:"data,omitempty"`
 }
 
 // incidentsAPIResponse is an internal type to hide
@@ -57,6 +76,13 @@ type IncidentResponse struct {
 // Some calls (e.g. Get or Create) return the incident in the "data" key.
 type incidentsAPIResponse struct {
 	Data *Incident `json:"data"`
+}
+
+// incidentUpdatesAPIResponse is an internal type to hide
+// some the "data" nested level from the API.
+// Some calls (e.g. Get or Create) return the incident update in the "data" key.
+type incidentUpdatesAPIResponse struct {
+	Data *IncidentUpdate `json:"data"`
 }
 
 // GetAll return all incidents.
@@ -113,6 +139,65 @@ func (s *IncidentsService) Update(id int, i *Incident) (*Incident, *Response, er
 // Docs: https://docs.cachethq.io/docs/delete-an-incident
 func (s *IncidentsService) Delete(id int) (*Response, error) {
 	u := fmt.Sprintf("api/v1/incidents/%d", id)
+
+	resp, err := s.client.Call("DELETE", u, nil, nil)
+	return resp, err
+}
+
+// GetAllUpdates return all incident updates that have been created for an incident.
+//
+// Docs: https://docs.cachethq.io/docs/incidentsidupdates
+func (s *IncidentsService) GetAllUpdates(opt *ListOptions, id int) (*IncidentUpdateResponse, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates", id)
+	v := new(IncidentUpdateResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v, resp, err
+}
+
+// GetUpdate returns a single incident update.
+//
+// Docs: https://docs.cachethq.io/docs/incidentsidupdatesid
+func (s *IncidentsService) GetUpdate(id, uid int) (*IncidentUpdate, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", id, uid)
+	v := new(incidentUpdatesAPIResponse)
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v.Data, resp, err
+}
+
+// CreateUpdate creates a new incident update.
+//
+// Docs: https://docs.cachethq.io/docs/incidentsincidentupdates
+func (s *IncidentsService) CreateUpdate(id int, i *IncidentUpdate) (*IncidentUpdate, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates", id)
+	v := new(incidentUpdatesAPIResponse)
+
+	resp, err := s.client.Call("POST", u, i, v)
+	return v.Data, resp, err
+}
+
+// UpdateUpdate updates an incident update.
+//
+// Docs: https://docs.cachethq.io/docs/incidentsincidentupdatesupdate-1
+func (s *IncidentsService) UpdateUpdate(id, uid int, i *IncidentUpdate) (*IncidentUpdate, *Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", id, uid)
+	v := new(incidentUpdatesAPIResponse)
+
+	resp, err := s.client.Call("PUT", u, i, v)
+	return v.Data, resp, err
+}
+
+// DeleteUpdate delete an incident update.
+//
+// Docs: https://docs.cachethq.io/docs/incidentsincidentupdatesupdate
+func (s *IncidentsService) DeleteUpdate(id, uid int) (*Response, error) {
+	u := fmt.Sprintf("api/v1/incidents/%d/updates/%d", id, uid)
 
 	resp, err := s.client.Call("DELETE", u, nil, nil)
 	return resp, err
