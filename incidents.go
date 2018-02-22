@@ -70,12 +70,26 @@ type incidentsAPIResponse struct {
 	Data *Incident `json:"data"`
 }
 
+// incidentsQueryParams ...
+type incidentsQueryParams struct {
+	ID          int    `json:"id,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Status      int    `json:"status,omitempty"`
+	Visible     int    `json:"visible,omitempty"`
+	ComponentID int    `json:"component_id,omitempty"`
+}
+
 // GetAll return all incidents.
 //
 // Docs: https://docs.cachethq.io/reference#get-incidents
-func (s *IncidentsService) GetAll() (*IncidentResponse, *Response, error) {
+func (s *IncidentsService) GetAll(opt *incidentsQueryParams) (*IncidentResponse, *Response, error) {
 	u := "api/v1/incidents"
 	v := new(IncidentResponse)
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
