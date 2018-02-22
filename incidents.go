@@ -63,15 +63,8 @@ type IncidentResponse struct {
 	Incidents []Incident `json:"data,omitempty"`
 }
 
-// incidentsAPIResponse is an internal type to hide
-// some the "data" nested level from the API.
-// Some calls (e.g. Get or Create) return the incident in the "data" key.
-type incidentsAPIResponse struct {
-	Data *Incident `json:"data"`
-}
-
-// incidentsQueryParams ...
-type incidentsQueryParams struct {
+// IncidentsQueryParams contains fields to filter returned results
+type IncidentsQueryParams struct {
 	ID          int    `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Status      int    `json:"status,omitempty"`
@@ -79,10 +72,17 @@ type incidentsQueryParams struct {
 	ComponentID int    `json:"component_id,omitempty"`
 }
 
+// incidentsAPIResponse is an internal type to hide
+// some the "data" nested level from the API.
+// Some calls (e.g. Get or Create) return the incident in the "data" key.
+type incidentsAPIResponse struct {
+	Data *Incident `json:"data"`
+}
+
 // GetAll return all incidents.
 //
 // Docs: https://docs.cachethq.io/reference#get-incidents
-func (s *IncidentsService) GetAll(opt *incidentsQueryParams) (*IncidentResponse, *Response, error) {
+func (s *IncidentsService) GetAll(opt *IncidentsQueryParams) (*IncidentResponse, *Response, error) {
 	u := "api/v1/incidents"
 	v := new(IncidentResponse)
 

@@ -16,7 +16,7 @@ func TestIncidentsService_GetAll(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"component_id":1,"name":"Incident Name","status":2,"visible":1,"stickied":false,"message":"Incident Message","occurred_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"is_resolved":false,"updates":[{"id":1,"incident_id":1,"status":2,"message":"Incident Update #1","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Identified","permalink":"http://localhost/incidents/1#update-1"}],"human_status":"Fixed","latest_update_id":1,"latest_status":2,"latest_human_status":"Identified","latest_icon":"icon ion-alert yellows","permalink":"http://localhost/incidents/1","duration":45}]}`)
 	})
 
-	queryParams := &incidentsQueryParams{}
+	queryParams := &IncidentsQueryParams{}
 
 	got, _, err := testClient.Incidents.GetAll(queryParams)
 	if err != nil {
