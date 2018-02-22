@@ -1,7 +1,7 @@
 # cachet
 
 [![GoDoc](https://godoc.org/github.com/andygrunwald/cachet?status.svg)](https://godoc.org/github.com/andygrunwald/cachet)
-[![Build Status](https://travis-ci.org/andygrunwald/cachet.svg?branch=master)](https://travis-ci.org/andygrunwald/cachet)
+[![Build Status](https://travis-ci.org/hugomcfonseca/cachet.svg?branch=master)](https://travis-ci.org/hugomcfonseca/cachet)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygrunwald/cachet)](https://goreportcard.com/report/github.com/andygrunwald/cachet)
 
 [Go(lang)](https://golang.org/) client library for [Cachet (open source status page system)](https://cachethq.io/).
@@ -9,11 +9,11 @@
 ## Features
 
 * Full API support
-	* Components
-	* Incidents
-	* Metrics
-	* Subscribers
-* Various authentification methods (Basic Auth and Token based)
+    * Components
+    * Incidents
+    * Metrics
+    * Subscribers
+* Various authentication methods (Basic Auth and Token based)
 * Fully tested
 
 ## Installation
@@ -62,19 +62,19 @@ Full example available in the [GoDoc examples section](https://godoc.org/github.
 package main
 
 import (
-	"fmt"
-	"github.com/andygrunwald/cachet"
+    "fmt"
+    "github.com/hugomcfonseca/cachet"
 )
 
 func main() {
-	client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
-	pong, resp, _ := client.General.Ping()
+    client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
+    pong, resp, _ := client.General.Ping()
 
-	fmt.Printf("Result: %s\n", pong)
-	fmt.Printf("Status: %s\n", resp.Status)
+    fmt.Printf("Result: %s\n", pong)
+    fmt.Printf("Status: %s\n", resp.Status)
 
-	// Output: Result: Pong!
-	// Status: 200 OK
+    // Output: Result: Pong!
+    // Status: 200 OK
 }
 ```
 
@@ -87,30 +87,30 @@ Full example available in the [GoDoc examples section](https://godoc.org/github.
 package main
 
 import (
-	"fmt"
-	"github.com/andygrunwald/cachet"
+    "fmt"
+    "github.com/hugomcfonseca/cachet"
 )
 
 func main() {
-	client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
-	client.Authentication.SetBasicAuth("test@test.com", "test123")
+    client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
+    client.Authentication.SetBasicAuth("test@test.com", "test123")
 
-	component := &cachet.Component{
-		Name:        "Beer Fridge",
-		Description: "Status of the beer fridge in the kitchen",
-		Status:      cachet.ComponentStatusOperational,
-	}
-	newComponent, resp, _ := client.Components.Create(component)
+    component := &cachet.Component{
+        Name:        "Beer Fridge",
+        Description: "Status of the beer fridge in the kitchen",
+        Status:      cachet.ComponentStatusOperational,
+    }
+    newComponent, resp, _ := client.Components.Create(component)
 
-	fmt.Printf("Result: %s\n", newComponent.Name)
-	if newComponent.ID > 0 {
-		fmt.Println("ID > 0!")
-	}
-	fmt.Printf("Status: %s\n", resp.Status)
+    fmt.Printf("Result: %s\n", newComponent.Name)
+    if newComponent.ID > 0 {
+        fmt.Println("ID > 0!")
+    }
+    fmt.Printf("Status: %s\n", resp.Status)
 
-	// Output: Beer Fridge
-	// ID > 0!
-	// Status: 200 OK
+    // Output: Beer Fridge
+    // ID > 0!
+    // Status: 200 OK
 }
 ```
 
@@ -140,3 +140,10 @@ If you are new to pull requests, checkout [Collaborating on projects using issue
 If you've found a bug, a typo, have a question or a want to request new feature, please [report it as a GitHub issue](https://github.com/andygrunwald/cachet/issues).
 
 For other queries, i'm available on Twitter ([@andygrunwald](https://twitter.com/andygrunwald)).
+
+### ToDo
+
+* Add various tests for POST/PUT requests
+* Add queryParam to LIST requests
+* Evaluate possibility to separate structs for GET and POST/PUT requests
+* Query string for some params in specific endpoints

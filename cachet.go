@@ -10,6 +10,8 @@ import (
 	"net/url"
 	"reflect"
 	"strings"
+
+	"github.com/google/go-querystring/query"
 )
 
 // A Client manages communication with the Cachet API.
