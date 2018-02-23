@@ -16,7 +16,9 @@ func TestComponentsService_GetAll(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"name":"API","description":"This is the Cachet API.","link":"","status":1,"order":0,"group_id":0,"created_at":"2015-07-24 14:42:10","updated_at":"2015-07-24 14:42:10","deleted_at":null,"status_name":"Operational"}]}`)
 	})
 
-	got, _, err := testClient.Components.GetAll()
+	queryParams := &ComponentsQueryParams{}
+
+	got, _, err := testClient.Components.GetAll(queryParams)
 	if err != nil {
 		t.Errorf("Components.GetAll returned error: %v", err)
 	}

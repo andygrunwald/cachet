@@ -52,6 +52,16 @@ type ComponentResponse struct {
 	Components []Component `json:"data,omitempty"`
 }
 
+// ComponentsQueryParams contains fields to filter returned results
+type ComponentsQueryParams struct {
+	ID      int    `json:"id,omitempty"`
+	Name    string `json:"name,omitempty"`
+	Status  int    `json:"status,omitempty"`
+	Order   int    `json:"order,omitempty"`
+	Enabled bool   `json:"enabled,omitempty"`
+	GroupID int    `json:"group_id,omitempty"`
+}
+
 // componentApiResponse is an internal type to hide
 // some the "data" nested level from the API.
 // Some calls (e.g. Get or Create) return the component in the "data" key.
@@ -62,9 +72,14 @@ type componentAPIResponse struct {
 // GetAll return all components that have been created.
 //
 // Docs: https://docs.cachethq.io/reference#get-components
-func (s *ComponentsService) GetAll() (*ComponentResponse, *Response, error) {
+func (s *ComponentsService) GetAll(filter *ComponentsQueryParams) (*ComponentResponse, *Response, error) {
 	u := "api/v1/components"
 	v := new(ComponentResponse)
+
+	u, err := addOptions(u, filter)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err

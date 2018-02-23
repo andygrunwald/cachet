@@ -70,6 +70,7 @@ type IncidentsQueryParams struct {
 	Status      int    `json:"status,omitempty"`
 	Visible     int    `json:"visible,omitempty"`
 	ComponentID int    `json:"component_id,omitempty"`
+	Stickied    bool   `json:"stickied,omitempty"`
 }
 
 // incidentsAPIResponse is an internal type to hide
@@ -82,11 +83,11 @@ type incidentsAPIResponse struct {
 // GetAll return all incidents.
 //
 // Docs: https://docs.cachethq.io/reference#get-incidents
-func (s *IncidentsService) GetAll(opt *IncidentsQueryParams) (*IncidentResponse, *Response, error) {
+func (s *IncidentsService) GetAll(filter *IncidentsQueryParams) (*IncidentResponse, *Response, error) {
 	u := "api/v1/incidents"
 	v := new(IncidentResponse)
 
-	u, err := addOptions(u, opt)
+	u, err := addOptions(u, filter)
 	if err != nil {
 		return nil, nil, err
 	}

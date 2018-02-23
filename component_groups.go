@@ -36,6 +36,15 @@ type ComponentGroupResponse struct {
 	ComponentGroups []ComponentGroup `json:"data,omitempty"`
 }
 
+// ComponentGroupsQueryParams contains fields to filter returned results
+type ComponentGroupsQueryParams struct {
+	ID        int    `json:"id,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Order     int    `json:"order,omitempty"`
+	Collapsed bool   `json:"collapsed,omitempty"`
+	Visible   int    `json:"visible,omitempty"`
+}
+
 // componentGroupAPIResponse is an internal type to hide
 // some the "data" nested level from the API.
 // Some calls (e.g. Get or Create) return the component group in the "data" key.
@@ -46,9 +55,14 @@ type componentGroupAPIResponse struct {
 // GetAll return all component groups that have been created.
 //
 // Docs: https://docs.cachethq.io/reference#get-componentgroups
-func (s *ComponentGroupsService) GetAll() (*ComponentGroupResponse, *Response, error) {
+func (s *ComponentGroupsService) GetAll(filter *ComponentGroupsQueryParams) (*ComponentGroupResponse, *Response, error) {
 	u := "api/v1/components/groups"
 	v := new(ComponentGroupResponse)
+
+	u, err := addOptions(u, filter)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err

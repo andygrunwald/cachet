@@ -16,7 +16,9 @@ func TestComponentsService_GetAllGroups(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"name":"Websites","created_at":"2015-11-07 16:30:02","updated_at":"2015-11-07 16:30:02","order":1}]}`)
 	})
 
-	got, _, err := testClient.ComponentGroups.GetAll()
+	queryParams := &ComponentGroupsQueryParams{}
+
+	got, _, err := testClient.ComponentGroups.GetAll(queryParams)
 	if err != nil {
 		t.Errorf("ComponentGroups.GetAll returned error: %v", err)
 	}

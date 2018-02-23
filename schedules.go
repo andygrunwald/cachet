@@ -38,6 +38,13 @@ type ScheduleResponse struct {
 	Schedules []Schedule `json:"data,omitempty"`
 }
 
+// SchedulesQueryParams contains fields to filter returned results
+type SchedulesQueryParams struct {
+	ID     int    `json:"id,omitempty"`
+	Name   string `json:"name,omitempty"`
+	Status int    `json:"order,omitempty"`
+}
+
 // schedulesAPIResponse is an internal type to hide
 // some the "data" nested level from the API.
 // Some calls (e.g. Get or Create) return the incident in the "data" key.
@@ -48,9 +55,14 @@ type schedulesAPIResponse struct {
 // GetAll return all scheduled events.
 //
 // Docs: https://docs.cachethq.io/reference#incidentsidupdates
-func (s *SchedulesService) GetAll() (*ScheduleResponse, *Response, error) {
+func (s *SchedulesService) GetAll(filter *SchedulesQueryParams) (*ScheduleResponse, *Response, error) {
 	u := "api/v1/schedules"
 	v := new(ScheduleResponse)
+
+	u, err := addOptions(u, filter)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
