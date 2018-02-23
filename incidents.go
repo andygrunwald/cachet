@@ -65,12 +65,12 @@ type IncidentResponse struct {
 
 // IncidentsQueryParams contains fields to filter returned results
 type IncidentsQueryParams struct {
-	ID          int    `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Status      int    `json:"status,omitempty"`
-	Visible     int    `json:"visible,omitempty"`
-	ComponentID int    `json:"component_id,omitempty"`
-	Stickied    bool   `json:"stickied,omitempty"`
+	ID          int    `url:"id,omitempty"`
+	Name        string `url:"name,omitempty"`
+	Status      int    `url:"status,omitempty"`
+	Visible     int    `url:"visible,omitempty"`
+	ComponentID int    `url:"component_id,omitempty"`
+	Stickied    bool   `url:"stickied,omitempty"`
 }
 
 // incidentsAPIResponse is an internal type to hide

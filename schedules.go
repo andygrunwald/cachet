@@ -40,9 +40,9 @@ type ScheduleResponse struct {
 
 // SchedulesQueryParams contains fields to filter returned results
 type SchedulesQueryParams struct {
-	ID     int    `json:"id,omitempty"`
-	Name   string `json:"name,omitempty"`
-	Status int    `json:"order,omitempty"`
+	ID     int    `url:"id,omitempty"`
+	Name   string `url:"name,omitempty"`
+	Status int    `url:"order,omitempty"`
 }
 
 // schedulesAPIResponse is an internal type to hide

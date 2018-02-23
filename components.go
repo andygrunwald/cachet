@@ -54,12 +54,12 @@ type ComponentResponse struct {
 
 // ComponentsQueryParams contains fields to filter returned results
 type ComponentsQueryParams struct {
-	ID      int    `json:"id,omitempty"`
-	Name    string `json:"name,omitempty"`
-	Status  int    `json:"status,omitempty"`
-	Order   int    `json:"order,omitempty"`
-	Enabled bool   `json:"enabled,omitempty"`
-	GroupID int    `json:"group_id,omitempty"`
+	ID      int    `url:"id,omitempty"`
+	Name    string `url:"name,omitempty"`
+	Status  int    `url:"status,omitempty"`
+	Order   int    `url:"order,omitempty"`
+	Enabled bool   `url:"enabled,omitempty"`
+	GroupID int    `url:"group_id,omitempty"`
 }
 
 // componentApiResponse is an internal type to hide
