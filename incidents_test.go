@@ -189,7 +189,8 @@ func TestIncidentsService_Update(t *testing.T) {
 	})
 
 	i := &Incident{
-		Name: "Incident Name",
+		Name:    "Incident Name v2",
+		Message: "Incident Message v2",
 	}
 	got, _, err := testClient.Incidents.Update(1, i)
 	if err != nil {

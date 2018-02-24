@@ -44,6 +44,14 @@ type Response struct {
 	*http.Response
 }
 
+// QueryOptions ...
+type QueryOptions struct {
+	Page      int    `json:"page,omitempty"`
+	PerPage   int    `json:"per_page,omitempty"`
+	SortField string `json:"sort,omitempty"`
+	OrderType string `json:"order,omitempty"`
+}
+
 // addOptions adds the parameters in opt as URL query parameters to s. opt
 // must be a struct whose fields may contain "url" tags.
 func addOptions(s string, opt interface{}) (string, error) {
