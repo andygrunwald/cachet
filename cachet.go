@@ -46,10 +46,10 @@ type Response struct {
 
 // QueryOptions ...
 type QueryOptions struct {
-	Page      int    `json:"page,omitempty"`
-	PerPage   int    `json:"per_page,omitempty"`
-	SortField string `json:"sort,omitempty"`
-	OrderType string `json:"order,omitempty"`
+	Page      int    `url:"page,omitempty"`
+	PerPage   int    `url:"per_page,omitempty"`
+	SortField string `url:"sort,omitempty"`
+	OrderType string `url:"order,omitempty"`
 }
 
 // addOptions adds the parameters in opt as URL query parameters to s. opt

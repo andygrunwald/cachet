@@ -43,7 +43,7 @@ type ComponentGroupsQueryParams struct {
 	Order       int          `url:"order,omitempty"`
 	Collapsed   bool         `url:"collapsed,omitempty"`
 	Visible     int          `url:"visible,omitempty"`
-	ExtraFields QueryOptions `url:",omitempty"`
+	ExtraFields QueryOptions `url:" ,omitempty"`
 }
 
 // componentGroupAPIResponse is an internal type to hide

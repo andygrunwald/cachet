@@ -60,7 +60,7 @@ type ComponentsQueryParams struct {
 	Order       int          `url:"order,omitempty"`
 	Enabled     bool         `url:"enabled,omitempty"`
 	GroupID     int          `url:"group_id,omitempty"`
-	ExtraFields QueryOptions `url:",omitempty"`
+	ExtraFields QueryOptions `url:" ,omitempty"`
 }
 
 // componentApiResponse is an internal type to hide

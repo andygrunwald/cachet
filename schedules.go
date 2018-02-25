@@ -43,7 +43,7 @@ type SchedulesQueryParams struct {
 	ID          int          `url:"id,omitempty"`
 	Name        string       `url:"name,omitempty"`
 	Status      int          `url:"order,omitempty"`
-	ExtraFields QueryOptions `url:",omitempty"`
+	ExtraFields QueryOptions `url:" ,omitempty"`
 }
 
 // schedulesAPIResponse is an internal type to hide

@@ -71,7 +71,7 @@ type IncidentsQueryParams struct {
 	Visible     int          `url:"visible,omitempty"`
 	ComponentID int          `url:"component_id,omitempty"`
 	Stickied    bool         `url:"stickied,omitempty"`
-	ExtraFields QueryOptions `url:",omitempty"`
+	ExtraFields QueryOptions `url:" ,omitempty"`
 }
 
 // incidentsAPIResponse is an internal type to hide
