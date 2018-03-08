@@ -44,7 +44,7 @@ type Response struct {
 	*http.Response
 }
 
-// QueryOptions ...
+// QueryOptions is a list of general params in each GET request.
 type QueryOptions struct {
 	Page      int    `url:"page,omitempty"`
 	PerPage   int    `url:"per_page,omitempty"`

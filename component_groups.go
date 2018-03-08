@@ -38,12 +38,12 @@ type ComponentGroupResponse struct {
 
 // ComponentGroupsQueryParams contains fields to filter returned results
 type ComponentGroupsQueryParams struct {
-	ID          int          `url:"id,omitempty"`
-	Name        string       `url:"name,omitempty"`
-	Order       int          `url:"order,omitempty"`
-	Collapsed   bool         `url:"collapsed,omitempty"`
-	Visible     int          `url:"visible,omitempty"`
-	ExtraFields QueryOptions `url:" ,omitempty"`
+	ID        int    `url:"id,omitempty"`
+	Name      string `url:"name,omitempty"`
+	Order     int    `url:"order,omitempty"`
+	Collapsed bool   `url:"collapsed,omitempty"`
+	Visible   int    `url:"visible,omitempty"`
+	QueryOptions
 }
 
 // componentGroupAPIResponse is an internal type to hide
