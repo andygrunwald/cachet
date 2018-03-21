@@ -1,7 +1,7 @@
 # cachet
 
 [![GoDoc](https://godoc.org/github.com/andygrunwald/cachet?status.svg)](https://godoc.org/github.com/andygrunwald/cachet)
-[![Build Status](https://travis-ci.org/hugomcfonseca/cachet.svg?branch=master)](https://travis-ci.org/hugomcfonseca/cachet)
+[![Build Status](https://travis-ci.org/andygrunwald/cachet.svg?branch=master)](https://travis-ci.org/andygrunwald/cachet)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygrunwald/cachet)](https://goreportcard.com/report/github.com/andygrunwald/cachet)
 
 [Go(lang)](https://golang.org/) client library for [Cachet (open source status page system)](https://cachethq.io/).
@@ -63,7 +63,7 @@ package main
 
 import (
     "fmt"
-    "github.com/hugomcfonseca/cachet"
+    "github.com/andygrunwald/cachet"
 )
 
 func main() {
@@ -88,7 +88,7 @@ package main
 
 import (
     "fmt"
-    "github.com/hugomcfonseca/cachet"
+    "github.com/andygrunwald/cachet"
 )
 
 func main() {
@@ -144,6 +144,3 @@ For other queries, i'm available on Twitter ([@andygrunwald](https://twitter.com
 ### ToDo
 
 * Add various tests for POST/PUT requests
-* Add queryParam to LIST requests
-* Evaluate possibility to separate structs for GET and POST/PUT requests
-* Query string for some params in specific endpoints
