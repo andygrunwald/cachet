@@ -2,6 +2,7 @@ package cachet_test
 
 import (
 	"fmt"
+
 	"github.com/andygrunwald/cachet"
 )
 

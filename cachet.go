@@ -27,11 +27,15 @@ type Client struct {
 	Authentication *AuthenticationService
 
 	// Services used for talking to different parts of the Cachet API.
-	General     *GeneralService
-	Components  *ComponentsService
-	Incidents   *IncidentsService
-	Metrics     *MetricsService
-	Subscribers *SubscribersService
+	General         *GeneralService
+	Components      *ComponentsService
+	ComponentGroups *ComponentGroupsService
+	Incidents       *IncidentsService
+	IncidentUpdates *IncidentUpdatesService
+	Metrics         *MetricsService
+	Schedules       *SchedulesService
+	Subscribers     *SubscribersService
+	Subscriptions   *SubscriptionsService
 }
 
 // Response is a Cachet API response.
@@ -40,14 +44,12 @@ type Response struct {
 	*http.Response
 }
 
-// ListOptions specifies the optional parameters to various List methods that
-// support pagination.
-type ListOptions struct {
-	// For paginated result sets, page of results to retrieve.
-	Page int `url:"page,omitempty"`
-
-	// For paginated result sets, the number of results to include per page.
-	PerPage int `url:"per_page,omitempty"`
+// QueryOptions is a list of general params in each GET request.
+type QueryOptions struct {
+	Page      int    `url:"page,omitempty"`
+	PerPage   int    `url:"per_page,omitempty"`
+	SortField string `url:"sort,omitempty"`
+	OrderType string `url:"order,omitempty"`
 }
 
 // addOptions adds the parameters in opt as URL query parameters to s. opt
@@ -81,7 +83,7 @@ func NewClient(instance string, httpClient *http.Client) (*Client, error) {
 	}
 
 	if len(instance) == 0 {
-		return nil, fmt.Errorf("No Cachet instance given.")
+		return nil, fmt.Errorf("No Cachet instance given")
 	}
 	baseURL, err := url.Parse(instance)
 	if err != nil {
@@ -95,9 +97,13 @@ func NewClient(instance string, httpClient *http.Client) (*Client, error) {
 	c.Authentication = &AuthenticationService{client: c}
 	c.General = &GeneralService{client: c}
 	c.Components = &ComponentsService{client: c}
+	c.ComponentGroups = &ComponentGroupsService{client: c}
 	c.Incidents = &IncidentsService{client: c}
+	c.IncidentUpdates = &IncidentUpdatesService{client: c}
 	c.Metrics = &MetricsService{client: c}
+	c.Schedules = &SchedulesService{client: c}
 	c.Subscribers = &SubscribersService{client: c}
+	c.Subscriptions = &SubscriptionsService{client: c}
 
 	return c, nil
 }

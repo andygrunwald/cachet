@@ -9,11 +9,11 @@
 ## Features
 
 * Full API support
-	* Components
-	* Incidents
-	* Metrics
-	* Subscribers
-* Various authentification methods (Basic Auth and Token based)
+    * Components
+    * Incidents
+    * Metrics
+    * Subscribers
+* Various authentication methods (Basic Auth and Token based)
 * Fully tested
 
 ## Installation
@@ -55,62 +55,62 @@ A few more examples are available in the [GoDoc examples section](https://godoc.
 
 ### Ping
 
-Call the [API test endpoint](https://docs.cachethq.io/docs/ping). Example without error handling.
+Call the [API test endpoint](https://docs.cachethq.io/reference#ping). Example without error handling.
 Full example available in the [GoDoc examples section](https://godoc.org/github.com/andygrunwald/cachet#pkg-examples).
 
 ```go
 package main
 
 import (
-	"fmt"
-	"github.com/andygrunwald/cachet"
+    "fmt"
+    "github.com/andygrunwald/cachet"
 )
 
 func main() {
-	client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
-	pong, resp, _ := client.General.Ping()
+    client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
+    pong, resp, _ := client.General.Ping()
 
-	fmt.Printf("Result: %s\n", pong)
-	fmt.Printf("Status: %s\n", resp.Status)
+    fmt.Printf("Result: %s\n", pong)
+    fmt.Printf("Status: %s\n", resp.Status)
 
-	// Output: Result: Pong!
-	// Status: 200 OK
+    // Output: Result: Pong!
+    // Status: 200 OK
 }
 ```
 
 ### Create a new component
 
-Calling [/components](https://docs.cachethq.io/docs/components). Example without error handling.
+Calling [/components](https://docs.cachethq.io/reference#components). Example without error handling.
 Full example available in the [GoDoc examples section](https://godoc.org/github.com/andygrunwald/cachet#pkg-examples).
 
 ```go
 package main
 
 import (
-	"fmt"
-	"github.com/andygrunwald/cachet"
+    "fmt"
+    "github.com/andygrunwald/cachet"
 )
 
 func main() {
-	client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
-	client.Authentication.SetBasicAuth("test@test.com", "test123")
+    client, _ := cachet.NewClient("https://demo.cachethq.io/", nil)
+    client.Authentication.SetBasicAuth("test@test.com", "test123")
 
-	component := &cachet.Component{
-		Name:        "Beer Fridge",
-		Description: "Status of the beer fridge in the kitchen",
-		Status:      cachet.ComponentStatusOperational,
-	}
-	newComponent, resp, _ := client.Components.Create(component)
+    component := &cachet.Component{
+        Name:        "Beer Fridge",
+        Description: "Status of the beer fridge in the kitchen",
+        Status:      cachet.ComponentStatusOperational,
+    }
+    newComponent, resp, _ := client.Components.Create(component)
 
-	fmt.Printf("Result: %s\n", newComponent.Name)
-	if newComponent.ID > 0 {
-		fmt.Println("ID > 0!")
-	}
-	fmt.Printf("Status: %s\n", resp.Status)
+    fmt.Printf("Result: %s\n", newComponent.Name)
+    if newComponent.ID > 0 {
+        fmt.Println("ID > 0!")
+    }
+    fmt.Printf("Status: %s\n", resp.Status)
 
-	// Output: Beer Fridge
-	// ID > 0!
-	// Status: 200 OK
+    // Output: Beer Fridge
+    // ID > 0!
+    // Status: 200 OK
 }
 ```
 

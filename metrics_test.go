@@ -47,15 +47,6 @@ func TestMetricsService_GetAll(t *testing.T) {
 				CreatedAt:    "2015-10-31 14:30:02",
 				UpdatedAt:    "2015-10-31 14:30:02",
 				Places:       2,
-				Points: []Point{
-					{
-						ID:        1,
-						MetricID:  1,
-						Value:     7,
-						CreatedAt: "2015-10-31 14:30:02",
-						UpdatedAt: "2015-10-31 14:30:02",
-					},
-				},
 			},
 		},
 	}
@@ -148,15 +139,6 @@ func TestMetricsService_Get(t *testing.T) {
 		CreatedAt:    "2015-10-31 14:30:02",
 		UpdatedAt:    "2015-10-31 14:30:02",
 		Places:       2,
-		Points: []Point{
-			{
-				ID:        1,
-				MetricID:  1,
-				Value:     7,
-				CreatedAt: "2015-10-31 14:30:02",
-				UpdatedAt: "2015-10-31 14:30:02",
-			},
-		},
 	}
 
 	if !reflect.DeepEqual(got, expected) {

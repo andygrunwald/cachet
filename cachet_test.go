@@ -14,7 +14,7 @@ import (
 
 const (
 	// testCachetInstance is a test instance url that won`t be called
-	testCachetInstance = "https://demo.cachethq.io/"
+	testCachetInstance = "https://dev.cachethq.io/"
 )
 
 var (
@@ -103,14 +103,26 @@ func TestNewClient_Services(t *testing.T) {
 	if c.Components == nil {
 		t.Error("No ComponentsService found.")
 	}
+	if c.ComponentGroups == nil {
+		t.Error("No ComponentGroupsService found.")
+	}
 	if c.Incidents == nil {
 		t.Error("No IncidentsService found.")
+	}
+	if c.IncidentUpdates == nil {
+		t.Error("No IncidentUpdatesService found.")
 	}
 	if c.Metrics == nil {
 		t.Error("No MetricsService found.")
 	}
+	if c.Schedules == nil {
+		t.Error("No SchedulesService found.")
+	}
 	if c.Subscribers == nil {
 		t.Error("No SubscribersService found.")
+	}
+	if c.Subscriptions == nil {
+		t.Error("No SubscriptionsService found.")
 	}
 
 }
@@ -118,11 +130,11 @@ func TestNewClient_Services(t *testing.T) {
 func TestNewRequest(t *testing.T) {
 	c, err := NewClient(testCachetInstance, nil)
 	if err != nil {
-		t.Errorf("An error occured. Expected nil. Got %+v.", err)
+		t.Errorf("An error occurred. Expected nil. Got %+v.", err)
 	}
 
 	inURL, outURL := "/foo", testCachetInstance+"foo"
-	inBody, outBody := &Component{Name: "Go API (by Token)", Status: 1}, `{"name":"Go API (by Token)","status":1,"enabled":false}`+"\n"
+	inBody, outBody := &Component{Name: "Go API (by Token)", Status: 1, Enabled: false}, `{"name":"Go API (by Token)","status":1}`+"\n"
 	req, _ := c.NewRequest("POST", inURL, inBody)
 
 	// Test that relative URL was expanded
