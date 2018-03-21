@@ -73,6 +73,11 @@ type MetricResponse struct {
 	Metrics []Metric `json:"data,omitempty"`
 }
 
+// MetricQueryParams contains fields to filter returned results
+type MetricQueryParams struct {
+	QueryOptions
+}
+
 // metricAPIResponse is an internal type to hide
 // some the "data" nested level from the API.
 // Some calls (e.g. Get or Create) return the metric in the "data" key.
@@ -97,9 +102,14 @@ type metricPointAPIResponse struct {
 // GetAll returns all metrics that have been setup.
 //
 // Docs: https://docs.cachethq.io/reference#get-metrics
-func (s *MetricsService) GetAll() (*MetricResponse, *Response, error) {
+func (s *MetricsService) GetAll(filter *MetricQueryParams) (*MetricResponse, *Response, error) {
 	u := "api/v1/metrics"
 	v := new(MetricResponse)
+
+	u, err := addOptions(u, filter)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err

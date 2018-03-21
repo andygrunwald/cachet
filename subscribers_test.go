@@ -16,7 +16,9 @@ func TestSubscribersService_GetAll(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"email":"support@alt-three.com","verify_code":"1234567890","verified_at":"2015-07-24 14:42:24","created_at":"2015-07-24 14:42:24","updated_at":"2015-07-24 14:42:24"}]}`)
 	})
 
-	got, _, err := testClient.Subscribers.GetAll()
+	queryParams := &SubscribersQueryParams{}
+
+	got, _, err := testClient.Subscribers.GetAll(queryParams)
 	if err != nil {
 		t.Errorf("Subscribers.GetAll returned error: %v", err)
 	}

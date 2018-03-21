@@ -25,6 +25,11 @@ type SubscriberResponse struct {
 	Subscribers []Subscriber `json:"data,omitempty"`
 }
 
+// SubscribersQueryParams contains fields to filter returned results
+type SubscribersQueryParams struct {
+	QueryOptions
+}
+
 // subscriberApiResponse is an internal type to hide
 // some the "data" nested level from the API.
 // Some calls (e.g. Get or Create) return the subscriber in the "data" key.
@@ -35,9 +40,14 @@ type subscriberAPIResponse struct {
 // GetAll returns all subscribers.
 //
 // Docs: https://docs.cachethq.io/reference#get-subscribers
-func (s *SubscribersService) GetAll() (*SubscriberResponse, *Response, error) {
+func (s *SubscribersService) GetAll(filter *SubscribersQueryParams) (*SubscriberResponse, *Response, error) {
 	u := "api/v1/subscribers"
 	v := new(SubscriberResponse)
+
+	u, err := addOptions(u, filter)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
