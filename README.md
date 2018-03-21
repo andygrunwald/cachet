@@ -140,7 +140,3 @@ If you are new to pull requests, checkout [Collaborating on projects using issue
 If you've found a bug, a typo, have a question or a want to request new feature, please [report it as a GitHub issue](https://github.com/andygrunwald/cachet/issues).
 
 For other queries, i'm available on Twitter ([@andygrunwald](https://twitter.com/andygrunwald)).
-
-### ToDo
-
-* Add various tests for POST/PUT requests
