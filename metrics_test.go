@@ -16,7 +16,9 @@ func TestMetricsService_GetAll(t *testing.T) {
 		fmt.Fprint(w, `{"meta":{"pagination":{"total":4,"count":4,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"name":"Cups of coffee","suffix":"Cups","description":"How many cups of coffee we've drank.","default_value":0,"calc_type":1,"display_chart":true,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02","places":2,"points":[{"id":1,"metric_id":1,"value":7,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02"}]}]}`)
 	})
 
-	got, _, err := testClient.Metrics.GetAll(&ListOptions{})
+	queryParams := &MetricQueryParams{}
+
+	got, _, err := testClient.Metrics.GetAll(queryParams)
 	if err != nil {
 		t.Errorf("Metrics.GetAll returned error: %v", err)
 	}
