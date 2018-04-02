@@ -14,6 +14,7 @@ const (
 	// ComponentStatusPerformanceIssues means "The component is experiencing some slowness."
 	ComponentStatusPerformanceIssues = 2
 	// ComponentStatusPartialOutage means "The component may not be working for everybody."
+	// This could be a geographical issue for example.
 	ComponentStatusPartialOutage = 3
 	// ComponentStatusMajorOutage means "The component is not working for anybody."
 	ComponentStatusMajorOutage = 4
@@ -43,7 +44,7 @@ type Component struct {
 	UpdatedAt   string `json:"updated_at,omitempty"`
 	DeletedAt   string `json:"deleted_at,omitempty"`
 	StatusName  string `json:"status_name,omitempty"`
-	Tags        []Tag  `json:"tags,omitempty"`
+	//Tags        Tag    `json:"tags,omitempty"`
 }
 
 // ComponentResponse reflects the response of /components call
@@ -110,7 +111,7 @@ func (s *ComponentsService) Create(c *Component) (*Component, *Response, error) 
 
 // Update updates a component.
 //
-// Docs: https://docs.cachethq.io/reference#update-a-component
+// Docs: https://docs.cachethq.io/docs/update-a-component
 func (s *ComponentsService) Update(id int, c *Component) (*Component, *Response, error) {
 	u := fmt.Sprintf("api/v1/components/%d", id)
 	v := new(componentAPIResponse)
@@ -121,7 +122,7 @@ func (s *ComponentsService) Update(id int, c *Component) (*Component, *Response,
 
 // Delete deletes a component.
 //
-// Docs: https://docs.cachethq.io/reference#delete-a-component
+// Docs: https://docs.cachethq.io/docs/delete-a-component
 func (s *ComponentsService) Delete(id int) (*Response, error) {
 	u := fmt.Sprintf("api/v1/components/%d", id)
 

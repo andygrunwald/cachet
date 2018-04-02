@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleGeneralService_Ping() {
-	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
+	client, err := cachet.NewClient("https://dev.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -25,7 +25,7 @@ func ExampleGeneralService_Ping() {
 }
 
 func ExampleComponentsService_Get() {
-	client, err := cachet.NewClient("https://demo.cachethq.io/", nil)
+	client, err := cachet.NewClient("https://dev.cachethq.io/", nil)
 	if err != nil {
 		panic(err)
 	}

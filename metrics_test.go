@@ -13,7 +13,7 @@ func TestMetricsService_GetAll(t *testing.T) {
 
 	testMux.HandleFunc("/api/v1/metrics", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"meta":{"pagination":{"total":4,"count":4,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"name":"Cups of coffee","suffix":"Cups","description":"How many cups of coffee we've drank.","default_value":0,"calc_type":1,"display_chart":true,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02","places":2,"points":[{"id":1,"metric_id":1,"value":7,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02"}]}]}`)
+		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"name":"Cups of coffee","suffix":"Cups","description":"How many cups of coffee we've drank.","default_value":0,"calc_type":1,"display_chart":true,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02","places":2,"default_view":1,"threshold":5,"order":0,"visible":1,"default_view_name":"Last 12 Hours"}]}`)
 	})
 
 	queryParams := &MetricQueryParams{}
@@ -26,8 +26,8 @@ func TestMetricsService_GetAll(t *testing.T) {
 	expected := &MetricResponse{
 		Meta: Meta{
 			Pagination: Pagination{
-				Total:       4,
-				Count:       4,
+				Total:       1,
+				Count:       1,
 				PerPage:     20,
 				CurrentPage: 1,
 				TotalPages:  1,
@@ -39,16 +39,21 @@ func TestMetricsService_GetAll(t *testing.T) {
 		},
 		Metrics: []Metric{
 			{
-				ID:           1,
-				Name:         "Cups of coffee",
-				Suffix:       "Cups",
-				Description:  "How many cups of coffee we've drank.",
-				DefaultValue: 0,
-				CalcType:     1,
-				DisplayChart: true,
-				CreatedAt:    "2015-10-31 14:30:02",
-				UpdatedAt:    "2015-10-31 14:30:02",
-				Places:       2,
+				ID:              1,
+				Name:            "Cups of coffee",
+				Suffix:          "Cups",
+				Description:     "How many cups of coffee we've drank.",
+				DefaultValue:    0,
+				CalcType:        1,
+				DisplayChart:    true,
+				CreatedAt:       "2015-10-31 14:30:02",
+				UpdatedAt:       "2015-10-31 14:30:02",
+				Places:          2,
+				DefaultView:     1,
+				Threshold:       5,
+				Order:           0,
+				Visible:         1,
+				DefaultViewName: "Last 12 Hours",
 			},
 		},
 	}
@@ -64,7 +69,7 @@ func TestMetricsService_Get(t *testing.T) {
 
 	testMux.HandleFunc("/api/v1/metrics/1", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"data":{"id":1,"name":"Cups of coffee","suffix":"Cups","description":"How many cups of coffee we've drank.","default_value":0,"calc_type":1,"display_chart":true,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02","places":2,"points":[{"id":1,"metric_id":1,"value":7,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02"}]}}`)
+		fmt.Fprint(w, `{"data":{"id":1,"name":"Cups of coffee","suffix":"Cups","description":"How many cups of coffee we've drank.","default_value":0,"calc_type":1,"display_chart":true,"created_at":"2015-10-31 14:30:02","updated_at":"2015-10-31 14:30:02","places":2,"default_view":1,"threshold":5,"order":0,"visible":1,"default_view_name":"Last 12 Hours"}}`)
 	})
 
 	got, _, err := testClient.Metrics.Get(1)
@@ -73,16 +78,21 @@ func TestMetricsService_Get(t *testing.T) {
 	}
 
 	expected := &Metric{
-		ID:           1,
-		Name:         "Cups of coffee",
-		Suffix:       "Cups",
-		Description:  "How many cups of coffee we've drank.",
-		DefaultValue: 0,
-		CalcType:     1,
-		DisplayChart: true,
-		CreatedAt:    "2015-10-31 14:30:02",
-		UpdatedAt:    "2015-10-31 14:30:02",
-		Places:       2,
+		ID:              1,
+		Name:            "Cups of coffee",
+		Suffix:          "Cups",
+		Description:     "How many cups of coffee we've drank.",
+		DefaultValue:    0,
+		CalcType:        1,
+		DisplayChart:    true,
+		CreatedAt:       "2015-10-31 14:30:02",
+		UpdatedAt:       "2015-10-31 14:30:02",
+		Places:          2,
+		DefaultView:     1,
+		Threshold:       5,
+		Order:           0,
+		Visible:         1,
+		DefaultViewName: "Last 12 Hours",
 	}
 
 	if !reflect.DeepEqual(got, expected) {
