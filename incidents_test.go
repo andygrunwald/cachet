@@ -13,10 +13,12 @@ func TestIncidentsService_GetAll(t *testing.T) {
 
 	testMux.HandleFunc("/api/v1/incidents", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}]}`)
+		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"component_id":1,"name":"Incident Name","status":2,"visible":1,"stickied":false,"message":"Incident Message","occurred_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"is_resolved":false,"updates":[{"id":1,"incident_id":1,"status":2,"message":"Incident Update #1","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Identified","permalink":"http://localhost/incidents/1#update-1"}],"human_status":"Fixed","latest_update_id":1,"latest_status":2,"latest_human_status":"Identified","latest_icon":"icon ion-alert yellows","permalink":"http://localhost/incidents/1","duration":45}]}`)
 	})
 
-	got, _, err := testClient.Incidents.GetAll(&ListOptions{})
+	queryParams := &IncidentsQueryParams{}
+
+	got, _, err := testClient.Incidents.GetAll(queryParams)
 	if err != nil {
 		t.Errorf("Incidents.GetAll returned error: %v", err)
 	}
@@ -38,66 +40,36 @@ func TestIncidentsService_GetAll(t *testing.T) {
 		Incidents: []Incident{
 			{
 				ID:          1,
-				ComponentID: 0,
+				ComponentID: 1,
 				Name:        "Incident Name",
-				Status:      4,
+				Status:      2,
 				Visible:     1,
 				Message:     "Incident Message",
-				ScheduledAt: "2015-08-01 12:00:00",
+				OccurredAt:  "2015-08-01 12:00:00",
 				CreatedAt:   "2015-08-01 12:00:00",
 				UpdatedAt:   "2015-08-01 12:00:00",
 				DeletedAt:   "",
-				HumanStatus: "Fixed",
-			},
-		},
-	}
-
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Incidents.GetAll returned %+v, want %+v", got, expected)
-	}
-}
-
-func TestIncidentsService_GetAllWithOptions(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"meta":{"pagination":{"total":1,"count":1,"per_page":50,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}]}`)
-	})
-
-	got, _, err := testClient.Incidents.GetAll(&ListOptions{PerPage: 50})
-	if err != nil {
-		t.Errorf("Incidents.GetAll returned error: %v", err)
-	}
-
-	expected := &IncidentResponse{
-		Meta: Meta{
-			Pagination: Pagination{
-				Total:       1,
-				Count:       1,
-				PerPage:     50,
-				CurrentPage: 1,
-				TotalPages:  1,
-				Links: Links{
-					NextPage:     "",
-					PreviousPage: "",
+				IsResolved:  false,
+				Updates: []IncidentUpdate{
+					{
+						ID:          1,
+						IncidentID:  1,
+						Status:      2,
+						Message:     "Incident Update #1",
+						UserID:      1,
+						CreatedAt:   "2015-08-01 12:00:00",
+						UpdatedAt:   "2015-08-01 12:00:00",
+						HumanStatus: "Identified",
+						Permalink:   "http://localhost/incidents/1#update-1",
+					},
 				},
-			},
-		},
-		Incidents: []Incident{
-			{
-				ID:          1,
-				ComponentID: 0,
-				Name:        "Incident Name",
-				Status:      4,
-				Visible:     1,
-				Message:     "Incident Message",
-				ScheduledAt: "2015-08-01 12:00:00",
-				CreatedAt:   "2015-08-01 12:00:00",
-				UpdatedAt:   "2015-08-01 12:00:00",
-				DeletedAt:   "",
-				HumanStatus: "Fixed",
+				HumanStatus:       "Fixed",
+				LatestUpdateID:    1,
+				LatestStatus:      2,
+				LatestHumanStatus: "Identified",
+				LatestIcon:        "icon ion-alert yellows",
+				Permalink:         "http://localhost/incidents/1",
+				Duration:          45,
 			},
 		},
 	}
@@ -113,7 +85,7 @@ func TestIncidentsService_Get(t *testing.T) {
 
 	testMux.HandleFunc("/api/v1/incidents/1", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"data":{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}}`)
+		fmt.Fprint(w, `{"data":{"id":1,"component_id":1,"name":"Incident Name","status":2,"visible":1,"stickied":false,"message":"Incident Message","occurred_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"is_resolved":false,"updates":[{"id":1,"incident_id":1,"status":2,"message":"Incident Update #1","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Identified","permalink":"http://localhost/incidents/1#update-1"}],"human_status":"Fixed","latest_update_id":1,"latest_status":2,"latest_human_status":"Identified","latest_icon":"icon ion-alert yellows","permalink":"http://localhost/incidents/1","duration":45}}`)
 	})
 
 	got, _, err := testClient.Incidents.Get(1)
@@ -123,16 +95,37 @@ func TestIncidentsService_Get(t *testing.T) {
 
 	expected := &Incident{
 		ID:          1,
-		ComponentID: 0,
+		ComponentID: 1,
 		Name:        "Incident Name",
-		Status:      4,
+		Status:      2,
 		Visible:     1,
+		Stickied:    false,
 		Message:     "Incident Message",
-		ScheduledAt: "2015-08-01 12:00:00",
+		OccurredAt:  "2015-08-01 12:00:00",
 		CreatedAt:   "2015-08-01 12:00:00",
 		UpdatedAt:   "2015-08-01 12:00:00",
 		DeletedAt:   "",
-		HumanStatus: "Fixed",
+		IsResolved:  false,
+		Updates: []IncidentUpdate{
+			{
+				ID:          1,
+				IncidentID:  1,
+				Status:      2,
+				Message:     "Incident Update #1",
+				UserID:      1,
+				CreatedAt:   "2015-08-01 12:00:00",
+				UpdatedAt:   "2015-08-01 12:00:00",
+				HumanStatus: "Identified",
+				Permalink:   "http://localhost/incidents/1#update-1",
+			},
+		},
+		HumanStatus:       "Fixed",
+		LatestUpdateID:    1,
+		LatestStatus:      2,
+		LatestHumanStatus: "Identified",
+		LatestIcon:        "icon ion-alert yellows",
+		Permalink:         "http://localhost/incidents/1",
+		Duration:          45,
 	}
 
 	if !reflect.DeepEqual(got, expected) {
@@ -140,20 +133,20 @@ func TestIncidentsService_Get(t *testing.T) {
 	}
 }
 
-func TestIncidentsService_Create(t *testing.T) {
+func TestIncidentsService_Create_No_Component(t *testing.T) {
 	setup()
 	defer teardown()
 
 	testMux.HandleFunc("/api/v1/incidents", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
-		fmt.Fprint(w, `{"data":{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}}`)
+		fmt.Fprint(w, `{"data":{"id":1,"name":"Incident Name","status":4,"visible":1,"stickied":false,"message":"Incident Message","occurred_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","is_resolved":false,"component":null,"updates":[],"human_status":"Fixed","latest_update_id":null,"latest_status":4,"latest_human_status":"Fixed","latest_icon":"icon ion-checkmark greens","permalink":"http://localhost/incidents/1","duration":0}}`)
 	})
 
 	i := &Incident{
 		Name:    "Incident Name",
 		Message: "Incident Message",
 		Status:  IncidentStatusFixed,
-		Visible: 1,
+		Visible: IncidentVisibilityPublic,
 	}
 	got, _, err := testClient.Incidents.Create(i)
 	if err != nil {
@@ -161,17 +154,24 @@ func TestIncidentsService_Create(t *testing.T) {
 	}
 
 	expected := &Incident{
-		ID:          1,
-		ComponentID: 0,
-		Name:        "Incident Name",
-		Status:      4,
-		Visible:     1,
-		Message:     "Incident Message",
-		ScheduledAt: "2015-08-01 12:00:00",
-		CreatedAt:   "2015-08-01 12:00:00",
-		UpdatedAt:   "2015-08-01 12:00:00",
-		DeletedAt:   "",
-		HumanStatus: "Fixed",
+		ID:                1,
+		Name:              "Incident Name",
+		Status:            4,
+		Visible:           1,
+		Stickied:          false,
+		Message:           "Incident Message",
+		OccurredAt:        "2015-08-01 12:00:00",
+		CreatedAt:         "2015-08-01 12:00:00",
+		UpdatedAt:         "2015-08-01 12:00:00",
+		IsResolved:        false,
+		Updates:           []IncidentUpdate{},
+		HumanStatus:       "Fixed",
+		LatestUpdateID:    0,
+		LatestStatus:      4,
+		LatestIcon:        "icon ion-checkmark greens",
+		LatestHumanStatus: "Fixed",
+		Permalink:         "http://localhost/incidents/1",
+		Duration:          0,
 	}
 
 	if !reflect.DeepEqual(got, expected) {
@@ -185,11 +185,12 @@ func TestIncidentsService_Update(t *testing.T) {
 
 	testMux.HandleFunc("/api/v1/incidents/1", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "PUT")
-		fmt.Fprint(w, `{"data":{"id":1,"component_id":0,"name":"Incident Name","status":4,"visible":1,"message":"Incident Message","scheduled_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","deleted_at":null,"human_status":"Fixed"}}`)
+		fmt.Fprint(w, `{"data":{"id":1,"name":"Incident Name v2","status":4,"visible":1,"stickied":false,"message":"Incident Message v2","occurred_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","created_at":"2015-08-01 12:00:00","is_resolved":true,"component":null,"updates":[],"human_status":"Fixed","latest_update_id":null,"latest_status":4,"latest_human_status":"Fixed","latest_icon":"icon ion-checkmark greens","permalink":"http://localhost/incidents/1","duration":0}}`)
 	})
 
 	i := &Incident{
-		Name: "Incident Name",
+		Name:    "Incident Name v2",
+		Message: "Incident Message v2",
 	}
 	got, _, err := testClient.Incidents.Update(1, i)
 	if err != nil {
@@ -197,17 +198,24 @@ func TestIncidentsService_Update(t *testing.T) {
 	}
 
 	expected := &Incident{
-		ID:          1,
-		ComponentID: 0,
-		Name:        "Incident Name",
-		Status:      4,
-		Visible:     1,
-		Message:     "Incident Message",
-		ScheduledAt: "2015-08-01 12:00:00",
-		CreatedAt:   "2015-08-01 12:00:00",
-		UpdatedAt:   "2015-08-01 12:00:00",
-		DeletedAt:   "",
-		HumanStatus: "Fixed",
+		ID:                1,
+		Name:              "Incident Name v2",
+		Status:            4,
+		Visible:           1,
+		Stickied:          false,
+		Message:           "Incident Message v2",
+		OccurredAt:        "2015-08-01 12:00:00",
+		CreatedAt:         "2015-08-01 12:00:00",
+		UpdatedAt:         "2015-08-01 12:00:00",
+		IsResolved:        true,
+		Updates:           []IncidentUpdate{},
+		HumanStatus:       "Fixed",
+		LatestUpdateID:    0,
+		LatestStatus:      4,
+		LatestIcon:        "icon ion-checkmark greens",
+		LatestHumanStatus: "Fixed",
+		Permalink:         "http://localhost/incidents/1",
+		Duration:          0,
 	}
 
 	if !reflect.DeepEqual(got, expected) {
@@ -231,243 +239,5 @@ func TestIncidentsService_Delete(t *testing.T) {
 
 	if resp.StatusCode != http.StatusNoContent {
 		t.Errorf("Incidents.Delete returned status %+v, want %+v", resp.StatusCode, http.StatusNoContent)
-	}
-}
-
-func TestIncidentsService_GetAllUpdates(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents/1/updates", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"meta":{"pagination":{"total":2,"count":2,"per_page":20,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"incident_id":1,"status":4,"message":"Incident Update Message","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Fixed","permalink":"http://cachet.app/incidents/1#update-1"},{"id":2,"incident_id":1,"status":3,"message":"Incident Update Message 2","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Watching","permalink":"http://cachet.app/incidents/1#update-2"}]}`)
-	})
-
-	got, _, err := testClient.Incidents.GetAllUpdates(&ListOptions{}, 1)
-	if err != nil {
-		t.Errorf("Incidents.GetAllUpdates returned error: %v", err)
-	}
-
-	expected := &IncidentUpdateResponse{
-		Meta: Meta{
-			Pagination: Pagination{
-				Total:       2,
-				Count:       2,
-				PerPage:     20,
-				CurrentPage: 1,
-				TotalPages:  1,
-				Links: Links{
-					NextPage:     "",
-					PreviousPage: "",
-				},
-			},
-		},
-		IncidentUpdates: []IncidentUpdate{
-			{
-				ID:          1,
-				IncidentID:  1,
-				Status:      4,
-				Message:     "Incident Update Message",
-				UserID:      1,
-				CreatedAt:   "2015-08-01 12:00:00",
-				UpdatedAt:   "2015-08-01 12:00:00",
-				HumanStatus: "Fixed",
-				Permalink:   "http://cachet.app/incidents/1#update-1",
-			},
-			{
-				ID:          2,
-				IncidentID:  1,
-				Status:      3,
-				Message:     "Incident Update Message 2",
-				UserID:      1,
-				CreatedAt:   "2015-08-01 12:00:00",
-				UpdatedAt:   "2015-08-01 12:00:00",
-				HumanStatus: "Watching",
-				Permalink:   "http://cachet.app/incidents/1#update-2",
-			},
-		},
-	}
-
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Incidents.GetAllUpdates returned %+v, want %+v", got, expected)
-	}
-}
-
-func TestIncidentsService_GetAllUpdatesWithOptions(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents/1/updates", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"meta":{"pagination":{"total":2,"count":2,"per_page":50,"current_page":1,"total_pages":1,"links":{"next_page":null,"previous_page":null}}},"data":[{"id":1,"incident_id":1,"status":4,"message":"Incident Update Message","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Fixed","permalink":"http://cachet.app/incidents/1#update-1"},{"id":2,"incident_id":1,"status":3,"message":"Incident Update Message 2","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Watching","permalink":"http://cachet.app/incidents/1#update-2"}]}`)
-	})
-
-	got, _, err := testClient.Incidents.GetAllUpdates(&ListOptions{PerPage: 50}, 1)
-	if err != nil {
-		t.Errorf("Incidents.GetAllUpdates returned error: %v", err)
-	}
-
-	expected := &IncidentUpdateResponse{
-		Meta: Meta{
-			Pagination: Pagination{
-				Total:       2,
-				Count:       2,
-				PerPage:     50,
-				CurrentPage: 1,
-				TotalPages:  1,
-				Links: Links{
-					NextPage:     "",
-					PreviousPage: "",
-				},
-			},
-		},
-		IncidentUpdates: []IncidentUpdate{
-			{
-				ID:          1,
-				IncidentID:  1,
-				Status:      4,
-				Message:     "Incident Update Message",
-				UserID:      1,
-				CreatedAt:   "2015-08-01 12:00:00",
-				UpdatedAt:   "2015-08-01 12:00:00",
-				HumanStatus: "Fixed",
-				Permalink:   "http://cachet.app/incidents/1#update-1",
-			},
-			{
-				ID:          2,
-				IncidentID:  1,
-				Status:      3,
-				Message:     "Incident Update Message 2",
-				UserID:      1,
-				CreatedAt:   "2015-08-01 12:00:00",
-				UpdatedAt:   "2015-08-01 12:00:00",
-				HumanStatus: "Watching",
-				Permalink:   "http://cachet.app/incidents/1#update-2",
-			},
-		},
-	}
-
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Incidents.GetAllUpdates returned %+v, want %+v", got, expected)
-	}
-}
-
-func TestIncidentsService_GetUpdate(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents/1/updates/1", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"data":{"id":1,"incident_id":1,"status":4,"message":"Incident Update Message","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Fixed","permalink":"http://cachet.app/incidents/1#update-1"}}`)
-	})
-
-	got, _, err := testClient.Incidents.GetUpdate(1, 1)
-	if err != nil {
-		t.Errorf("Incidents.GetUpdate returned error: %v", err)
-	}
-
-	expected := &IncidentUpdate{
-		ID:          1,
-		IncidentID:  1,
-		Status:      4,
-		Message:     "Incident Update Message",
-		UserID:      1,
-		CreatedAt:   "2015-08-01 12:00:00",
-		UpdatedAt:   "2015-08-01 12:00:00",
-		HumanStatus: "Fixed",
-		Permalink:   "http://cachet.app/incidents/1#update-1",
-	}
-
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Incidents.GetUpdate returned %+v, want %+v", got, expected)
-	}
-}
-
-func TestIncidentsService_CreateUpdate(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents/1/updates", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "POST")
-		fmt.Fprint(w, `{"data":{"id":1,"incident_id":1,"status":4,"message":"Incident Update Message","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Fixed","permalink":"http://cachet.app/incidents/1#update-1"}}`)
-	})
-
-	i := &IncidentUpdate{
-		Message: "Incident Update Message",
-		Status:  IncidentStatusFixed,
-	}
-
-	got, _, err := testClient.Incidents.CreateUpdate(1, i)
-	if err != nil {
-		t.Errorf("Incidents.CreateUpdate returned error: %v", err)
-	}
-
-	expected := &IncidentUpdate{
-		ID:          1,
-		IncidentID:  1,
-		Status:      4,
-		Message:     "Incident Update Message",
-		UserID:      1,
-		CreatedAt:   "2015-08-01 12:00:00",
-		UpdatedAt:   "2015-08-01 12:00:00",
-		HumanStatus: "Fixed",
-		Permalink:   "http://cachet.app/incidents/1#update-1",
-	}
-
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Incidents.CreateUpdate returned %+v, want %+v", got, expected)
-	}
-}
-
-func TestIncidentsService_UpdateUpdate(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents/1/updates/1", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "PUT")
-		fmt.Fprint(w, `{"data":{"id":1,"incident_id":1,"status":4,"message":"Incident Update Message 2","user_id":1,"created_at":"2015-08-01 12:00:00","updated_at":"2015-08-01 12:00:00","human_status":"Fixed","permalink":"http://cachet.app/incidents/1#update-1"}}`)
-	})
-
-	i := &IncidentUpdate{
-		Message: "Incident Update Message 2",
-	}
-	got, _, err := testClient.Incidents.UpdateUpdate(1, 1, i)
-	if err != nil {
-		t.Errorf("Incidents.UpdateUpdate returned error: %v", err)
-	}
-
-	expected := &IncidentUpdate{
-		ID:          1,
-		IncidentID:  1,
-		Status:      4,
-		Message:     "Incident Update Message 2",
-		UserID:      1,
-		CreatedAt:   "2015-08-01 12:00:00",
-		UpdatedAt:   "2015-08-01 12:00:00",
-		HumanStatus: "Fixed",
-		Permalink:   "http://cachet.app/incidents/1#update-1",
-	}
-
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Incidents.UpdateUpdate returned %+v, want %+v", got, expected)
-	}
-}
-
-func TestIncidentsService_DeleteUpdate(t *testing.T) {
-	setup()
-	defer teardown()
-
-	testMux.HandleFunc("/api/v1/incidents/1/updates/1", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "DELETE")
-		w.WriteHeader(http.StatusNoContent)
-	})
-
-	resp, err := testClient.Incidents.DeleteUpdate(1, 1)
-	if err != nil {
-		t.Errorf("Incidents.DeleteUpdate returned error: %v", err)
-	}
-
-	if resp.StatusCode != http.StatusNoContent {
-		t.Errorf("Incidents.DeleteUpdate returned status %+v, want %+v", resp.StatusCode, http.StatusNoContent)
 	}
 }
